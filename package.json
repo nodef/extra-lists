@@ -1,0 +1,56 @@
+{
+  "name": "lists-extra",
+  "version": "0.1.8",
+  "description": "Extra methods for lists.",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/lists-extra.git"
+  },
+  "keywords": [
+    "lists",
+    "extra"
+  ],
+  "author": "wolfram77@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodef/lists-extra/issues"
+  },
+  "homepage": "https://github.com/nodef/lists-extra#readme",
+  "devDependencies": {
+    "iterable-first": "^0.1.6",
+    "iterable-last": "^0.1.7",
+    "iterable-middle": "^0.1.4",
+    "iterable-size": "^0.1.4",
+    "lists-concat": "^0.1.2",
+    "lists-entries": "^0.1.8",
+    "lists-equal": "^0.1.2",
+    "lists-every": "^0.1.2",
+    "lists-filter": "^0.1.2",
+    "lists-find": "^0.1.2",
+    "lists-findall": "^0.1.2",
+    "lists-findallindices": "^0.1.2",
+    "lists-findindex": "^0.1.2",
+    "lists-findlast": "^0.1.2",
+    "lists-findlastindex": "^0.1.2",
+    "lists-first": "^0.1.2",
+    "lists-foreach": "^0.1.2",
+    "lists-includes": "^0.1.2",
+    "lists-indexof": "^0.1.2",
+    "lists-indicesof": "^0.1.2",
+    "lists-join": "^0.1.3",
+    "lists-keys": "^0.1.3",
+    "lists-last": "^0.1.2",
+    "lists-lastindexof": "^0.1.2",
+    "lists-map": "^0.1.2",
+    "lists-middle": "^0.1.2",
+    "lists-reduce": "^0.1.2",
+    "lists-size": "^0.1.2",
+    "lists-some": "^0.1.2",
+    "lists-values": "^0.1.2",
+    "map-fromlists": "^0.1.2"
+  }
+}
