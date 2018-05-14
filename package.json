@@ -1,6 +1,6 @@
 {
   "name": "lists-extra",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Extra methods for lists.",
   "main": "index.js",
   "scripts": {
@@ -21,10 +21,6 @@
   },
   "homepage": "https://github.com/nodef/lists-extra#readme",
   "devDependencies": {
-    "iterable-first": "^0.1.6",
-    "iterable-last": "^0.1.7",
-    "iterable-middle": "^0.1.4",
-    "iterable-size": "^0.1.4",
     "lists-concat": "^0.1.2",
     "lists-entries": "^0.1.8",
     "lists-equal": "^0.1.2",
@@ -50,7 +46,6 @@
     "lists-reduce": "^0.1.2",
     "lists-size": "^0.1.2",
     "lists-some": "^0.1.2",
-    "lists-values": "^0.1.2",
-    "map-fromlists": "^0.1.2"
+    "lists-values": "^0.1.2"
   }
 }

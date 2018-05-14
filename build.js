@@ -1,3 +1,4 @@
+const packageLock = require('./package-lock.json')
 const package = require('./package.json');
 const fs = require('fs');
 const os = require('os');
@@ -31,20 +32,20 @@ function renameConstants(txt, i) {
 
 var TEXT = new Map();
 var FUNCTION = new Map();
-var INLIB = /^lists\-/;
 var names = [], i = 0;
-for(var dep in package.devDependencies) {
+for(var dep in packageLock.dependencies) {
   var fil = require.resolve(dep);
   var txt = fs.readFileSync(fil, 'utf8');
-  txt = renameFunctions(txt, INLIB.test(dep), i++);
+  var lib = dep in package.devDependencies;
+  txt = renameFunctions(txt, lib, i++);
   var exp = txt.match(/module\.exports = (\w+)/)[1];
   txt = txt.replace(/\s*module\.exports.*/g, '');
-  if(INLIB.test(dep)) names.push(exp);
+  if(lib) names.push(exp);
   FUNCTION.set(dep, exp);
   TEXT.set(dep, txt);
 }
 var z = '', i = 0;
-for(var dep in package.devDependencies) {
+for(var dep in packageLock.dependencies) {
   var txt = TEXT.get(dep);
   txt = renameRequires(txt);
   txt = renameConstants(txt, i++);
