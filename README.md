@@ -1,5 +1,3 @@
-# lists-extra
-
 [![NPM](https://nodei.co/npm/lists-extra.png)](https://nodei.co/npm/lists-extra/)
 
 Extra methods for [lists].<br>
