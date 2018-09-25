@@ -1,3 +1,6 @@
+# lists-extra
+
+> [lists-extra](https://www.npmjs.com/package/lists-extra) was renamed to [extra-lists](https://www.npmjs.com/package/extra-lists).
 [![NPM](https://nodei.co/npm/lists-extra.png)](https://nodei.co/npm/lists-extra/)
 
 Extra methods for [lists].<br>
