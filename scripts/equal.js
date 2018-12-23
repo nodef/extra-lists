@@ -1,4 +1,4 @@
-const map = require('map-fromlists');
+const map = require('@extra-map/from-lists');
 function equal(l1, l2) {
   var m1 = map(l1), v2i = l2[1][Symbol.iterator]();
   for(var k2 of l2[0])

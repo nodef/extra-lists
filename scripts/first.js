@@ -1,5 +1,5 @@
-const itr = require('iterable-first');
-function first(lst) {
-  return [itr(lst[0]), itr(lst[1])];
+const first = require('@extra-iterable/first');
+function listsFirst(lst) {
+  return [first(lst[0]), first(lst[1])];
 };
-module.exports = first;
+module.exports = listsFirst;

@@ -1,10 +1,10 @@
-Extra methods for [lists].<br>
+Standard utility methods for [Lists].<br>
 Browserified, minified module: [extra-lists.min].
 
 ```javascript
-const extra = require('extra-lists');
-// extra.is(<value>)
-// extra.equal(<lists-1>, <lists-2>)
+const Lists = require('extra-lists');
+// Lists.is(<value>)
+// Lists.equal(<lists-1>, <lists-2>)
 // ...
 ```
 
@@ -44,7 +44,10 @@ Functional methods:
 - [reduce](https://www.npmjs.com/package/@extra-lists/reduce)
 - [filter](https://www.npmjs.com/package/@extra-lists/filter)
 - [map](https://www.npmjs.com/package/@extra-lists/map)
+<br>
 
 
-[lists]: https://www.npmjs.com/package/@extra-lists/is
+[![nodef](https://i.imgur.com/MCb8pjO.jpg)](https://nodef.github.io)
+
+[Lists]: https://www.npmjs.com/package/@extra-lists/is
 [extra-lists.min]: https://www.npmjs.com/package/extra-lists.min

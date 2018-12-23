@@ -1,5 +1,5 @@
-const itr = require('iterable-last');
-function last(lst) {
-  return [itr(lst[0]), itr(lst[1])];
+const last = require('@extra-iterable/last');
+function listsLast(lst) {
+  return [last(lst[0]), last(lst[1])];
 };
-module.exports = last;
+module.exports = listsLast;

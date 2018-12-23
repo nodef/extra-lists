@@ -1,52 +1,37 @@
 {
   "name": "extra-lists",
-  "version": "0.1.14",
-  "description": "Extra methods for lists.",
+  "version": "1.0.3",
+  "description": "Standard utility methods for Lists.",
   "main": "index.js",
   "scripts": {
     "test": "exit"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/extra-lists/extra-lists.git"
-  },
   "keywords": [
     "extra",
     "lists",
+    "standard",
+    "utility",
+    "method",
+    "manipulation",
+    "function",
     "merferry"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/extra-lists.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodef/extra-lists/issues"
+  },
+  "homepage": "https://github.com/nodef/extra-lists#readme",
   "author": "wolfram77@gmail.com",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/extra-lists/extra-lists/issues"
-  },
-  "homepage": "https://github.com/extra-lists/extra-lists#readme",
   "devDependencies": {
-    "@extra-lists/concat": "^1.0.1",
-    "@extra-lists/entries": "^1.0.1",
-    "@extra-lists/equal": "^1.0.1",
-    "@extra-lists/every": "^1.0.1",
-    "@extra-lists/filter": "^1.0.1",
-    "@extra-lists/find": "^1.0.1",
-    "@extra-lists/find-all": "^1.0.1",
-    "@extra-lists/find-all-indices": "^1.0.1",
-    "@extra-lists/find-index": "^1.0.1",
-    "@extra-lists/find-last": "^1.0.1",
-    "@extra-lists/find-last-index": "^1.0.1",
-    "@extra-lists/first": "^1.0.1",
-    "@extra-lists/for-each": "^1.0.1",
-    "@extra-lists/includes": "^1.0.1",
-    "@extra-lists/index-of": "^1.0.1",
-    "@extra-lists/indices-of": "^1.0.1",
-    "@extra-lists/join": "^1.0.1",
-    "@extra-lists/keys": "^1.0.1",
-    "@extra-lists/last": "^1.0.1",
-    "@extra-lists/last-index-of": "^1.0.1",
-    "@extra-lists/map": "^1.0.1",
-    "@extra-lists/middle": "^1.0.1",
-    "@extra-lists/reduce": "^1.0.1",
-    "@extra-lists/size": "^1.0.1",
-    "@extra-lists/some": "^1.0.1",
-    "@extra-lists/values": "^1.0.1"
+    "@extra-iterable/first": "^1.1.0",
+    "@extra-iterable/is": "^1.1.0",
+    "@extra-iterable/last": "^1.1.0",
+    "@extra-iterable/middle": "^1.1.0",
+    "@extra-iterable/size": "^1.1.0",
+    "@extra-map/from-lists": "^1.0.1"
   }
 }

@@ -1,5 +1,5 @@
-const itr = require('iterable-is');
-function is(a) {
-  return Array.isArray(a) && itr(a[0]) && itr(a[1]);
+const is = require('@extra-iterable/is');
+function listsIs(a) {
+  return Array.isArray(a) && is(a[0]) && is(a[1]);
 };
-module.exports = is;
+module.exports = listsIs;

@@ -1,5 +1,5 @@
-const itr = require('iterable-middle');
-function middle(lst, idx) {
-  return [itr(lst[0], idx), itr(lst[1], idx)];
+const middle = require('@extra-iterable/middle');
+function listsMiddle(lst, idx) {
+  return [middle(lst[0], idx), middle(lst[1], idx)];
 };
-module.exports = middle;
+module.exports = listsMiddle;
