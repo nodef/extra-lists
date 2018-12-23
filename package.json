@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Standard utility methods for Lists.",
   "main": "index.js",
   "scripts": {
@@ -35,6 +35,11 @@
     "@extra-iterable/last": "^1.1.0",
     "@extra-iterable/middle": "^1.1.0",
     "@extra-iterable/size": "^1.1.0",
-    "@extra-map/from-lists": "^1.0.1"
+    "@extra-map/from-lists": "^1.0.1",
+    "browserify": "^16.2.3",
+    "find-npm-prefix": "^1.0.2",
+    "recast": "^0.16.1",
+    "tempy": "^0.2.1",
+    "uglify-es": "^3.3.9"
   }
 }
