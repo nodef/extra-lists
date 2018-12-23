@@ -1,9 +1,12 @@
 {
   "name": "extra-lists",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Standard utility methods for Lists.",
   "main": "index.js",
   "scripts": {
+    "prepublishOnly": "node ./prepublish",
+    "browserify": "browserify index.js -o index.web.js -s Integer",
+    "uglifyjs": "uglifyjs -c -m -o index.min.js index.web.js",
     "test": "exit"
   },
   "keywords": [
