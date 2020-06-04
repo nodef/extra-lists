@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Standard utility methods for Lists.",
   "main": "index.js",
   "module": "index.mjs",
@@ -31,6 +31,7 @@
   "author": "wolfram77@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "extra-build": "^1.0.173"
+    "extra-build": "^1.0.173",
+    "extra-iterable": "^2.3.38"
   }
 }
