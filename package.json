@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Standard utility methods for Lists.",
   "main": "index.js",
   "module": "index.mjs",
@@ -18,13 +18,7 @@
   "runkitExampleFilename": "example.js",
   "keywords": [
     "extra",
-    "lists",
-    "standard",
-    "utility",
-    "method",
-    "manipulation",
-    "function",
-    "merferry"
+    "lists"
   ],
   "repository": {
     "type": "git",
