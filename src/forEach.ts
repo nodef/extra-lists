@@ -8,7 +8,7 @@ import type {Lists, calledFn} from './_types';
  */
 function forEach<T, U>(x: Lists<T, U>, fn: calledFn<T, U>, ths: object=null): void {
   var [ks, vs] = x, ki = ks[Symbol.iterator]();
-  for(var v of x) {
+  for(var v of vs) {
     var k = ki.next();
     fn.call(ths, v, k, x);
   }
