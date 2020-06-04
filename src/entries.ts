@@ -5,10 +5,9 @@ import type {Lists} from './_types';
  * @param x lists
  */
 function* entries<T, U>(x: Lists<T, U>): Iterable<[T, U]> {
-  var [ks, vs] = x;
-  var vi = vs[Symbol.iterator]();
-  for(var k of ks) {
-    var v = vi.next().value;
+  var [ks, vs] = x, ki = ks[Symbol.iterator]();
+  for(var v of vs) {
+    var k = ki.next().value;
     yield [k, v];
   }
 }
