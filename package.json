@@ -1,7 +1,7 @@
 {
   "name": "extra-lists",
-  "version": "2.0.17",
-  "description": "Standard utility methods for Lists.",
+  "version": "2.0.18",
+  "description": "Lists is pair of list of keys, and values.",
   "main": "index.js",
   "module": "index.mjs",
   "exports": {
