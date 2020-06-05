@@ -8,6 +8,6 @@ import type {Lists} from './_types';
  * @param I end index (-ve: from right) (end)
  */
 function size<T, U>(x: Lists<T, U>, i: number=0, I: number=END): number {
-  return iterableSize(x[0], i, I);
+  return iterableSize(x[1], i, I);
 }
 export default size;
