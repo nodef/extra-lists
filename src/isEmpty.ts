@@ -1,8 +1,12 @@
+import {isEmpty as iterableIsEmpty} from 'extra-iterable';
+import keys from './keys';
+import type {Lists} from './_types';
+
 /**
- * Checks if map is empty.
- * @param x a map
+ * Checks if lists is empty.
+ * @param x lists
  */
-function isEmpty<T, U>(x: Map<T, U>): boolean {
-  return x.size===0;
+function isEmpty<T, U>(x: Lists<T, U>): boolean {
+  return iterableIsEmpty(keys(x));
 }
 export default isEmpty;
