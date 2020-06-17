@@ -1,4 +1,4 @@
-import type {Lists, reduceFn} from './_types';
+import type {reduceFn, Lists} from './_types';
 
 /**
  * Reduces values to a single value.
