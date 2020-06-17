@@ -1,7 +1,7 @@
 import keys from './keys';
+import values from './values';
 import {map as iterableMap} from 'extra-iterable';
 import type {Lists} from './_types';
-import values from './values';
 
 /**
  * Exchanges two values.
