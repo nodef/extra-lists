@@ -1,11 +1,11 @@
-import shift$ from './shift$';
-import type {Entries} from './_types';
+import drop from './drop';
+import type {Lists} from './_types';
 
 /**
  * Removes first entry.
- * @param x a map
+ * @param x lists
  */
-function shift<T, U>(x: Entries<T, U>): Map<T, U> {
-  return shift$(new Map(x));
+function shift<T, U>(x: Lists<T, U>): Lists<T, U> {
+  return drop(x, 1);
 }
 export default shift;
