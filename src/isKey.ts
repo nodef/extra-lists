@@ -1,5 +1,5 @@
 import keys from './keys';
-import {includes as iterableIncludes} from 'extra-iterable';
+import {isValue as iterableIsValue} from 'extra-iterable';
 import type {Lists} from './_types';
 
 /**
@@ -8,6 +8,6 @@ import type {Lists} from './_types';
  * @param k key?
  */
 function isKey<T, U>(x: Lists<T, U>, k: T): boolean {
-  return iterableIncludes(keys(x), k);
+  return iterableIsValue(keys(x), k);
 }
 export default isKey;
