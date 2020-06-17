@@ -1,5 +1,5 @@
-import filterAt from './filterAt';
-import {subsequences} from 'extra-array';
+import entries from './entries';
+import {submaps as mapSubmaps} from 'extra-map';
 import type {Lists} from './_types';
 
 /**
@@ -8,7 +8,7 @@ import type {Lists} from './_types';
  * @param n number of entries (-1 => any)
  */
 function* submaps<T, U>(x: Lists<T, U>, n: number=-1): Iterable<Lists<T, U>> {
-  for(var ks of subsequences([...x.keys()], n))
-    yield filterAt(x, ks);
+  for(var a of mapSubmaps(new Map(entries(x)), n))
+    yield [a.keys(), a.values()];
 }
 export default submaps;
