@@ -1,13 +1,15 @@
+import keys from './keys';
+import values from './values';
 import {concat as iterableConcat} from 'extra-iterable';
 import type {Lists} from './_types';
 
 /**
- * Appends lists' together.
- * @param xs lists'
+ * Appends entries from all lists.
+ * @param xs n lists
  */
 function concat<T, U>(...xs: Lists<T, U>[]): Lists<T, U> {
-  var kss = xs.map(x => x[0]);
-  var vss = xs.map(x => x[1]);
-  return [iterableConcat(...kss), iterableConcat(...vss)];
+  var ks = iterableConcat(...xs.map(keys));
+  var vs = iterableConcat(...xs.map(values));
+  return [ks, vs];
 }
 export default concat;
