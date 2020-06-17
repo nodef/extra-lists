@@ -1,13 +1,12 @@
-import {size as iterableSize, END} from 'extra-iterable';
+import keys from './keys';
+import {size as iterableSize} from 'extra-iterable';
 import type {Lists} from './_types';
 
 /**
- * Gets size of part of lists.
+ * Gets size of lists.
  * @param x lists
- * @param i start index (-ve: from right) (0)
- * @param I end index (-ve: from right) (end)
  */
-function size<T, U>(x: Lists<T, U>, i: number=0, I: number=END): number {
-  return iterableSize(x[1], i, I);
+function size<T, U>(x: Lists<T, U>): number {
+  return iterableSize(keys(x));
 }
 export default size;
