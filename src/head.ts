@@ -1,12 +1,13 @@
-import type {Entries} from './_types';
+import entries from './entries';
+import {head as iterableHead} from 'extra-iterable';
+import type {Lists} from './_types';
 
 /**
  * Gets first entry.
- * @param x a map
+ * @param x lists
+ * @param ed default entry
  */
-function head<T, U>(x: Entries<T, U>): [T, U] {
-  for(var [k, v] of x)
-    return [k, v];
-  return [undefined, undefined];
+function head<T, U>(x: Lists<T, U>, ed: [T, U]=[] as any): [T, U] {
+  return iterableHead(entries(x), ed);
 }
 export default head;
