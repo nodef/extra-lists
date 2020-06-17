@@ -1,14 +1,15 @@
-import type {testFn, Entries} from './_types';
+import entries from './entries';
+import type {testFn, Lists} from './_types';
 
 /**
  * Keeps entries which pass a test.
- * @param x a map
- * @param fn test function (v, k, x)
+ * @param x lists
+ * @param ft test function (v, k, x)
  */
-function filter<T, U>(x: Entries<T, U>, fn: testFn<T, U>): Map<T, U> {
-  var a = new Map();
-  for(var [k, v] of x)
-    if(fn(v, k, x)) a.set(k, v);
-  return a;
+function filter<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Lists<T, U> {
+  var ks = [], vs = [];
+  for(var [k, v] of entries(x))
+    if(ft(v, k, x)) { ks.push(k); vs.push(v); }
+  return [vs, ks];
 }
 export default filter;

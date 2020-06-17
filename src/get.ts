@@ -1,3 +1,5 @@
+import entries from './entries';
+import {get as entriesGet} from 'extra-entries';
 import type {Lists} from './_types';
 
 /**
@@ -6,10 +8,6 @@ import type {Lists} from './_types';
  * @param k key
  */
 function get<T, U>(x: Lists<T, U>, k: T): U {
-  var [ks, vs] = x, ki = ks[Symbol.iterator]();
-  for(var v of vs) {
-    var k0 = ki.next().value;
-    if(k===k0) return v;
-  }
+  return entriesGet(entries(x), k);
 }
 export default get;

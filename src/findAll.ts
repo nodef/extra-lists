@@ -1,14 +1,13 @@
-import type {testFn, Entries} from './_types';
+import entries from './entries';
+import {findAll as mapFindAll} from 'extra-map';
+import type {testFn, Lists} from './_types';
 
 /**
  * Finds values passing a test.
- * @param x a map
- * @param fn test function (v, k, x)
+ * @param x lists
+ * @param ft test function (v, k, x)
  */
-function findAll<T, U>(x: Entries<T, U>, fn: testFn<T, U>): U[] {
-  var a = [];
-  for(var [k, v] of x)
-    if(fn(v, k, x)) a.push(v);
-  return a;
+function findAll<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Iterable<U> {
+  return mapFindAll(entries(x), ft as any);
 }
 export default findAll;

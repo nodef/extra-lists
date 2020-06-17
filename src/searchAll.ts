@@ -1,23 +1,13 @@
-import id from './_id';
-import cmp from './_cmp';
-import type {Lists, compareFn, mapFn} from './_types';
+import entries from './entries';
+import {searchAll as mapSearchAll} from 'extra-map';
+import type {testFn, Lists} from './_types';
 
 /**
- * Searches a value throughout.
+ * Finds keys of entries passing a test.
  * @param x lists
- * @param v search value
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- * @returns keys of value
+ * @param ft test function (v, k, x)
  */
-function* searchAll<T, U, V=U>(x: Lists<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): IterableIterator<T> {
-  var fc = fc||cmp, fm = fm||id;
-  var [ks, vs] = x, ki = ks[Symbol.iterator]();
-  var v1 = fm(v, null, null);
-  for(var u of vs) {
-    var k = ki.next().value;
-    var u1 = fm(u, k, x);
-    if(fc(u1, v1)===0) yield k;
-  }
+function searchAll<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Iterable<T> {
+  return mapSearchAll(entries(x), ft as any);
 }
 export default searchAll;

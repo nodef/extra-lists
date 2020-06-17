@@ -1,23 +1,13 @@
-import id from './_id';
-import cmp from './_cmp';
-import type {Lists, compareFn, mapFn} from './_types';
+import entries from './entries';
+import {search as mapSearch} from 'extra-map';
+import type {testFn, Lists} from './_types';
 
 /**
- * Searches a value.
+ * Finds key of an entry passing a test.
  * @param x lists
- * @param v search value
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- * @returns key of value
+ * @param ft test function (v, k, x)
  */
-function search<T, U, V=U>(x: Lists<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): T {
-  var fc = fc||cmp, fm = fm||id;
-  var [ks, vs] = x, ki = ks[Symbol.iterator]();
-  var v1 = fm(v, null, null);
-  for(var u of vs) {
-    var k = ki.next().value;
-    var u1 = fm(u, k, x);
-    if(fc(u1, v1)===0) return k;
-  }
+function search<T, U>(x: Lists<T, U>, ft: testFn<T, U>): T {
+  return mapSearch(entries(x), ft as any);
 }
 export default search;

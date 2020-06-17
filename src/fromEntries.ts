@@ -1,14 +1,11 @@
-import type {Lists} from './_types';
+import type {Entries, Lists} from './_types';
 
 /**
- * Creates map from lists.
- * @param ls lists, i.e. [keys, values]
+ * Creates lists from entries.
+ * @param es entries
  */
-function fromLists<T, U>(ls: Lists<T, U>): Map<T, U> {
-  var [ks, vs] = ls, vi = vs[Symbol.iterator]();
-  var a = new Map();
-  for(var k of ks)
-    a.set(k, vi.next().value);
-  return a;
+function fromEntries<T, U>(es: Entries<T, U>): Lists<T, U> {
+  var a = new Map(es);
+  return [a.keys(), a.values()];
 }
-export default fromLists;
+export default fromEntries;

@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "2.0.57",
+  "version": "2.0.58",
   "description": "Lists is pair of list of keys, and values.",
   "main": "index.js",
   "module": "index.mjs",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "extra-array": "^2.9.9",
     "extra-build": "^1.0.187",
+    "extra-entries": "^2.1.7",
     "extra-iterable": "^2.4.29",
     "extra-map": "^2.1.25",
     "extra-set": "^2.1.54"

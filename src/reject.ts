@@ -1,15 +1,15 @@
-import type {testFn, Entries} from './_types';
+import entries from './entries';
+import type {testFn, Lists} from './_types';
 
 /**
  * Discards entries which pass a test.
  * @param x lists
- * @param fn test function (v, k, x)
- * @param ths this argument
+ * @param ft test function (v, k, x)
  */
-function reject<T, U>(x: Entries<T, U>, fn: testFn<T, U>, ths: object=null): Map<T, U> {
-  var a = new Map();
-  for(var [k, v] of x)
-    if(!fn.call(ths, v, k, x)) a.set(k, v);
-  return a;
+function reject<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Lists<T, U> {
+  var ks = [], vs = [];
+  for(var [k, v] of entries(x))
+    if(!ft(v, k, x)) { ks.push(k); vs.push(v); }
+  return [ks, vs];
 }
 export default reject;
