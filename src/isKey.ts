@@ -1,9 +1,13 @@
+import keys from './keys';
+import {includes as iterableIncludes} from 'extra-iterable';
+import type {Lists} from './_types';
+
 /**
- * Checks if map has a key.
- * @param x a map
+ * Checks if lists has a key.
+ * @param x lists
  * @param k key?
  */
-function isKey<T, U>(x: Map<T, U>, k: T): boolean {
-  return x.has(k);
+function isKey<T, U>(x: Lists<T, U>, k: T): boolean {
+  return iterableIncludes(keys(x), k);
 }
 export default isKey;
