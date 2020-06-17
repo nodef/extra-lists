@@ -1,11 +1,5 @@
 import type {Lists, testFn} from './_types';
 
-function everyIf<T, U>(x: Lists<T, U>): boolean {
-  for(var v of x[1])
-    if(!v) return false;
-  return true;
-}
-
 function everyTest<T, U>(x: Lists<T, U>, fn: testFn<T, U>, ths: object=null): boolean {
   var [ks, vs] = x, ki = ks[Symbol.iterator]();
   for(var v of vs) {

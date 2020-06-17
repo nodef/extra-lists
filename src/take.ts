@@ -1,14 +1,16 @@
+import keys from './keys';
+import values from './values';
+import {take as iterableTake} from 'extra-iterable';
+import type {Lists} from './_types';
+
 /**
  * Keeps first n entries only.
- * @param x a map
+ * @param x lists
  * @param n number of entries (1)
  */
-function take<T, U>(x: Map<T, U>, n: number=1): Map<T, U> {
-  var i = 0, a = new Map();
-  for(var [k, v] of x) {
-    if(i++>=n) break;
-    a.set(k, v);
-  }
-  return a;
+function take<T, U>(x: Lists<T, U>, n: number=1): Lists<T, U> {
+  var ks = iterableTake(keys(x), n);
+  var vs = iterableTake(values(x), n);
+  return [ks, vs];
 }
 export default take;
