@@ -1,7 +1,6 @@
-import {fromLists} from 'extra-map';
+import entries from './entries';
+import {union as mapUnion} from 'extra-map';
 import type {combineFn, Lists} from './_types';
-import keys from './keys';
-import values from './values';
 
 /**
  * Gives lists present in any lists.
@@ -10,8 +9,7 @@ import values from './values';
  * @param fc combine function (a, b)
  */
 function union<T, U>(x: Lists<T, U>, y: Lists<T, U>, fc: combineFn<U>=null): Lists<T, U> {
-  var a = fromLists(x);
-  var [ks, vs] = y, vi = vs[Symbol.iterator]();
-  for(var k of ks)
+  var a = mapUnion(entries(x), entries(y), fc);
+  return [a.keys(), a.values()];
 }
 export default union;
