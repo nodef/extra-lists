@@ -1,10 +1,11 @@
 import drop from './drop';
+import type {Lists} from './_types';
 
 /**
- * Gets map without the first entry.
- * @param x a map
+ * Gets lists without the first entry.
+ * @param x lists
  */
-function tail<T, U>(x: Map<T, U>): Map<T, U> {
+function tail<T, U>(x: Lists<T, U>): Lists<T, U> {
   return drop(x, 1);
 }
 export default tail;
