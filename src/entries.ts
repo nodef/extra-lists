@@ -1,14 +1,12 @@
-import type {Lists} from './_types';
+import type {Lists, Entries} from './_types';
 
 /**
  * Lists all key-value pairs.
  * @param x lists
  */
-function* entries<T, U>(x: Lists<T, U>): Iterable<[T, U]> {
-  var [ks, vs] = x, ki = ks[Symbol.iterator]();
-  for(var v of vs) {
-    var k = ki.next().value;
-    yield [k, v];
-  }
+function* entries<T, U>(x: Lists<T, U>): Entries<T, U> {
+  var [ks, vs] = x, vi = vs[Symbol.iterator]();
+  for(var k of ks)
+    yield [k, vi.next().value];
 }
 export default entries;
