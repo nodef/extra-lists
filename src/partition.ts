@@ -4,10 +4,9 @@ import type {Lists, testFn} from './_types';
  * Segregates values by test result.
  * @param x lists
  * @param fn test function (v, k, x)
- * @param ths this argument
  * @returns [satisfies, doesnt]
  */
-function partition<T, U>(x: Lists<T, U>, fn: testFn<T, U>, ths: object=null): [Lists<T, U>, Lists<T, U>] {
+function partition<T, U>(x: Lists<T, U>, fn: testFn<T, U>): [Lists<T, U>, Lists<T, U>] {
   var [ks, vs] = x, ki = ks[Symbol.iterator]();
   var t: [T[], U[]] = [[], []], f: [T[], U[]] = [[], []];
   for(var v of vs) {

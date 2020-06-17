@@ -1,18 +1,13 @@
-import keys from './keys';
-import values from './values';
+import entries from './entries';
+import {count as mapCount} from 'extra-map';
 import type {Lists, testFn} from './_types';
 
 /**
  * Counts values which satisfy a test.
  * @param x lists
- * @param fn test function (v, k, x)
+ * @param ft test function (v, k, x)
  */
-function count<T, U>(x: Lists<T, U>, fn: testFn<T, U>): number {
-  var vi = values(x)[Symbol.iterator](), a = 0;
-  for(var k of keys(x)) {
-    var v = vi.next().value;
-    if(fn(v, k, x)) a++;
-  }
-  return a;
+function count<T, U>(x: Lists<T, U>, ft: testFn<T, U>): number {
+  return mapCount(entries(x), ft as any);
 }
 export default count;

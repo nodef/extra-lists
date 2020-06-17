@@ -1,19 +1,15 @@
+import {reduce as mapReduce} from 'extra-map';
 import type {reduceFn, Lists} from './_types';
+import entries from './entries';
 
 /**
  * Reduces values to a single value.
  * @param x lists
- * @param fn reduce function (acc, v, k, x)
+ * @param fr reduce function (acc, v, k, x)
  * @param acc initial value
  */
-function reduce<T, U, V>(x: Lists<T, U>, fn: reduceFn<T, U, V>, acc?: V): V {
-  var [ks, vs] = x, ki = ks[Symbol.iterator]();
-  var init = arguments.length <= 2;
-  for(var v of vs) {
-    var k = ki.next().value;
-    if(init) { init = false; acc = v as any as V; }
-    else acc = fn(acc, v, k, x);
-  }
-  return acc;
+function reduce<T, U, V=U>(x: Lists<T, U>, fr: reduceFn<T, U, U|V>, acc?: U|V): U|V {
+  var A = arguments.length, es = entries(x);
+  return A>2? mapReduce(es, fr as any, acc) : mapReduce(es, fr as any);
 }
 export default reduce;

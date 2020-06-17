@@ -7,9 +7,8 @@ import type {mapFn, Entries} from './_types';
  * Flattens nested map, using map function.
  * @param x a nested map
  * @param fn map function (v, k, x)
- * @param ths this argument
  */
-function flatMap<T>(x: Entries<T, any>, fn: mapFn<T, any, any>=null, ths: object=null): Map<T, any> {
+function flatMap<T>(x: Entries<T, any>, fn: mapFn<T, any, any>=null): Map<T, any> {
   var fn = fn||id;
   var a = new Map();
   for(var [k, v] of x) {

@@ -2,7 +2,7 @@ import type {testFn, Entries} from './_types';
 
 /**
  * Discards entries which pass a test.
- * @param x a map
+ * @param x lists
  * @param fn test function (v, k, x)
  * @param ths this argument
  */

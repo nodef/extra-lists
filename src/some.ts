@@ -19,9 +19,8 @@ function someTest<T, U>(x: Lists<T, U>, fn: testFn<T, U>, ths: object=null): boo
  * Checks if any value satisfies a test.
  * @param x lists
  * @param fn test function (v, k ,x)
- * @param ths this argument
  */
-function some<T, U>(x: Lists<T, U>, fn: testFn<T, U>=null, ths: object=null): boolean {
+function some<T, U>(x: Lists<T, U>, fn: testFn<T, U>=null): boolean {
   if(fn) return someTest(x, fn, ths);
   else return someIf(x);
 }
