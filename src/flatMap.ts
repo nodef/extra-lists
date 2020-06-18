@@ -21,5 +21,3 @@ function flatMap<T>(x: Lists<T, any>, fm: mapFn<T, any, any>=null, ft: testFn<T,
   return [a.keys(), a.values()];
 }
 export default flatMap;
-// REUSE mapFlatMap?
-// YE
