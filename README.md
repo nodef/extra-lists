@@ -1,4 +1,4 @@
-Standard utility methods for [Lists].<br>
+Standard utility methods for [Lists]. [:running:] [:vhs:] [:package:] [:moon:] [:ledger:]
 Browserified, minified module: [extra-lists.min].
 
 ```javascript
@@ -51,3 +51,8 @@ Functional methods:
 
 [Lists]: https://www.npmjs.com/package/@extra-lists/is
 [extra-lists.min]: https://www.npmjs.com/package/extra-lists.min
+[:running:]: https://npm.runkit.com/extra-lists
+[:vhs:]: https://asciinema.org/a/340678
+[:package:]: https://www.npmjs.com/package/extra-lists
+[:moon:]: https://www.npmjs.com/package/extra-lists.min
+[:ledger:]: https://unpkg.com/extra-lists/
