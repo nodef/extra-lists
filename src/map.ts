@@ -6,7 +6,7 @@ import type {Lists, mapFn} from './_types';
  * @param x lists
  * @param fm map function (v, k, x)
 s */
-function* map<T, U, V>(x: Lists<T, U>, fm: mapFn<T, U, V>) {
+function map<T, U, V>(x: Lists<T, U>, fm: mapFn<T, U, V>) {
   var ks = [], vs = [];
   for(var [k, v] of entries(x))
   { ks.push(k); vs.push(fm(v, k, x)); }

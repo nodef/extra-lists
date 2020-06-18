@@ -10,6 +10,6 @@ function filter<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Lists<T, U> {
   var ks = [], vs = [];
   for(var [k, v] of entries(x))
     if(ft(v, k, x)) { ks.push(k); vs.push(v); }
-  return [vs, ks];
+  return [ks, vs];
 }
 export default filter;
