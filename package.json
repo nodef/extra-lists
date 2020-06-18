@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "2.0.80",
+  "version": "2.0.81",
   "description": "Standard utility methods for Lists.<br>",
   "main": "index.js",
   "module": "index.mjs",
