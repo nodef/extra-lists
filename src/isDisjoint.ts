@@ -1,12 +1,13 @@
+import keys from './keys';
+import {isDisjoint as setIsDisjoint} from 'extra-set';
+import type {Lists} from './_types';
+
 /**
- * Checks if maps have no common keys.
- * @param x a map
- * @param y another map
+ * Checks if lists have no common keys.
+ * @param x lists
+ * @param y another lists
  */
-function isDisjoint<T, U>(x: Map<T, U>, y: Map<T, U>): boolean {
-  for(var k of x.keys())
-    if(y.has(k)) return false;
-  return true;
+function isDisjoint<T, U>(x: Lists<T, U>, y: Lists<T, U>): boolean {
+  return setIsDisjoint(new Set(keys(x)), keys(y));
 }
 export default isDisjoint;
-// TODO
