@@ -30,3 +30,4 @@ function* cartesianProduct<T, U, V=U>(xs: Map<T, U>[], fn: mapFn<number, Map<T, 
   }
 }
 export default cartesianProduct;
+// TODO
