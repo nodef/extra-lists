@@ -102,7 +102,6 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [browserify]: https://www.npmjs.com/package/browserify
 [rollup]: https://www.npmjs.com/package/rollup
 [uglify-js]: https://www.npmjs.com/package/uglify-js
-[:vhs:]: https://asciinema.org/a/340409
 [is]: https://github.com/nodef/extra-lists/wiki/is
 [get]: https://github.com/nodef/extra-lists/wiki/get
 [set]: https://github.com/nodef/extra-lists/wiki/set
