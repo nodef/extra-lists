@@ -10,7 +10,7 @@ import type {compareFn, mapFn, Lists} from './_types';
  * @param fm map function (v, k, x)
  * @returns x=y: 0, otherwise: -ve/+ve
  */
-export function compare<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc?: compareFn<U|V>, fm?: mapFn<T, U, U|V>): number {
+function compare<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc?: compareFn<U|V>, fm?: mapFn<T, U, U|V>): number {
   return entriesCompare(entries(x), entries(y), fc, fm as any);
 }
 export default compare;
