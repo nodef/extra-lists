@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "2.0.88",
+  "version": "2.0.89",
   "description": "Lists is a pair of key list and value list, with unique keys.",
   "main": "index.js",
   "module": "index.mjs",

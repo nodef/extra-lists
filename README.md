@@ -88,7 +88,7 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 |                       | 
 | [isEmpty]             | Checks if lists is empty.
 | [isEqual]             | Checks if two lists are equal.
-| [compare]             | Compares two entries.
+| [compare]             | Compares two lists.
 | [find]                | Finds a value passing a test.
 | [search]              | Finds key of an entry passing a test.
 | [scanWhile]           | Finds key of first entry not passing a test.
@@ -145,3 +145,4 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [:moon:]: https://www.npmjs.com/package/extra-lists.min
 [:ledger:]: https://unpkg.com/extra-lists/
 [fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
+[:vhs:]: https://asciinema.org/a/340743
