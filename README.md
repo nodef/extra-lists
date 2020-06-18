@@ -48,22 +48,22 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 
 | Method                | Action
 |-----------------------|-------
-| [is]                  | Checks if value is entries.
+| [is]                  | Checks if value is lists.
 | [get]                 | Gets value at key.
 | [set]                 | Sets value at key.
 | [remove]              | Deletes an entry.
 | [swap]                | Exchanges two values.
-| [size]                | Gets size of entries.
+| [size]                | Gets size of lists.
 |                       | 
 | [head]                | Gets first entry.
 | [take]                | Keeps first n entries only.
 | [shift]               | Removes first entry.
-| [fromLists]           | Creates entries from lists.
+| [fromEntries]         | Creates lists from entries.
 |                       | 
-| [concat]              | Appends entries from maps, preferring last.
-| [flat]                | Flattens nested entries to given depth.
-| [chunk]               | Breaks entries into chunks of given size.
-| [filterAt]            | Gets entries with given keys.
+| [concat]              | Appends entries from all lists.
+| [flat]                | Flattens nested lists to given depth.
+| [chunk]               | Breaks lists into chunks of given size.
+| [filterAt]            | Gets lists with given keys.
 |                       | 
 | [map]                 | Updates values based on map function.
 | [filter]              | Keeps entries which pass a test.
@@ -71,23 +71,23 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 | [range]               | Finds smallest and largest entries.
 | [count]               | Counts values which satisfy a test.
 | [partition]           | Segregates values by test result.
-| [cartesianProduct]    | Lists cartesian product of entries.
+| [cartesianProduct]    | Lists cartesian product of lists.
 | [some]                | Checks if any value satisfies a test.
-| [zip]                 | Combines matching entries from maps.
+| [zip]                 | Combines matching entries from all lists.
 |                       | 
-| [union]               | Gives entries present in any entries.
-| [intersection]        | Gives entries present in both entries.
-| [difference]          | Gives entries not present in another.
-| [symmetricDifference] | Gives entries not present in both entries.
-| [isDisjoint]          | Checks if entries have no common keys.
+| [union]               | Gives lists present in any lists.
+| [intersection]        | Gives entries present in both lists.
+| [difference]          | Gives entries of lists not present in another.
+| [symmetricDifference] | Gives entries not present in both lists.
+| [isDisjoint]          | Checks if lists have no common keys.
 |                       | 
 | [key]                 | Picks an arbitrary key.
 | [value]               | Picks an arbitrary value.
 | [entry]               | Picks an arbitrary entry.
-| [submap]              | Gives an arbitrary submap.
+| [submap]              | Picks an arbitrary submap.
 |                       | 
-| [isEmpty]             | Checks if entries is empty.
-| [isEqual]             | Checks if two maps are equal.
+| [isEmpty]             | Checks if lists is empty.
+| [isEqual]             | Checks if two lists are equal.
 | [compare]             | Compares two entries.
 | [find]                | Finds a value passing a test.
 | [search]              | Finds key of an entry passing a test.
@@ -95,7 +95,7 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 
 <br>
 
-[![nodef](https://merferry.glitch.me/card/extra-entries.svg)](https://nodef.github.io)
+[![nodef](https://merferry.glitch.me/card/extra-lists.svg)](https://nodef.github.io)
 
 [(1)]: https://www.youtube.com/watch?v=8O0Nt9qY_vo
 [Lists]: https://www.npmjs.com/package/@extra-lists/is
@@ -103,3 +103,46 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [rollup]: https://www.npmjs.com/package/rollup
 [uglify-js]: https://www.npmjs.com/package/uglify-js
 [:vhs:]: https://asciinema.org/a/340409
+[is]: https://github.com/nodef/extra-lists/wiki/is
+[get]: https://github.com/nodef/extra-lists/wiki/get
+[set]: https://github.com/nodef/extra-lists/wiki/set
+[remove]: https://github.com/nodef/extra-lists/wiki/remove
+[swap]: https://github.com/nodef/extra-lists/wiki/swap
+[size]: https://github.com/nodef/extra-lists/wiki/size
+[head]: https://github.com/nodef/extra-lists/wiki/head
+[take]: https://github.com/nodef/extra-lists/wiki/take
+[shift]: https://github.com/nodef/extra-lists/wiki/shift
+[fromLists]: https://github.com/nodef/extra-lists/wiki/fromLists
+[concat]: https://github.com/nodef/extra-lists/wiki/concat
+[flat]: https://github.com/nodef/extra-lists/wiki/flat
+[chunk]: https://github.com/nodef/extra-lists/wiki/chunk
+[filterAt]: https://github.com/nodef/extra-lists/wiki/filterAt
+[map]: https://github.com/nodef/extra-lists/wiki/map
+[filter]: https://github.com/nodef/extra-lists/wiki/filter
+[reduce]: https://github.com/nodef/extra-lists/wiki/reduce
+[range]: https://github.com/nodef/extra-lists/wiki/range
+[count]: https://github.com/nodef/extra-lists/wiki/count
+[partition]: https://github.com/nodef/extra-lists/wiki/partition
+[cartesianProduct]: https://github.com/nodef/extra-lists/wiki/cartesianProduct
+[some]: https://github.com/nodef/extra-lists/wiki/some
+[zip]: https://github.com/nodef/extra-lists/wiki/zip
+[union]: https://github.com/nodef/extra-lists/wiki/union
+[intersection]: https://github.com/nodef/extra-lists/wiki/intersection
+[difference]: https://github.com/nodef/extra-lists/wiki/difference
+[symmetricDifference]: https://github.com/nodef/extra-lists/wiki/symmetricDifference
+[isDisjoint]: https://github.com/nodef/extra-lists/wiki/isDisjoint
+[key]: https://github.com/nodef/extra-lists/wiki/key
+[value]: https://github.com/nodef/extra-lists/wiki/value
+[entry]: https://github.com/nodef/extra-lists/wiki/entry
+[submap]: https://github.com/nodef/extra-lists/wiki/submap
+[isEmpty]: https://github.com/nodef/extra-lists/wiki/isEmpty
+[isEqual]: https://github.com/nodef/extra-lists/wiki/isEqual
+[compare]: https://github.com/nodef/extra-lists/wiki/compare
+[find]: https://github.com/nodef/extra-lists/wiki/find
+[search]: https://github.com/nodef/extra-lists/wiki/search
+[scanWhile]: https://github.com/nodef/extra-lists/wiki/scanWhile
+[:running:]: https://npm.runkit.com/extra-lists
+[:package:]: https://www.npmjs.com/package/extra-lists
+[:moon:]: https://www.npmjs.com/package/extra-lists.min
+[:ledger:]: https://unpkg.com/extra-lists/
+[fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
