@@ -31,7 +31,7 @@ lists.min(x);
 // [ 'd', -4 ]
 
 var x = [['a', 'b', 'c'], [1, 2, 3]];
-[...lists.submaps(x)].map(a => [[...a[0]], [...a[1]]]);
+[...lists.subsets(x)].map(a => [[...a[0]], [...a[1]]]);
 // [
 //   [ [], [] ],
 //   [ [ 'a' ], [ 1 ] ],
@@ -84,7 +84,7 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 | [key]                 | Picks an arbitrary key.
 | [value]               | Picks an arbitrary value.
 | [entry]               | Picks an arbitrary entry.
-| [submap]              | Picks an arbitrary submap.
+| [subset]              | Picks an arbitrary submap.
 |                       | 
 | [isEmpty]             | Checks if lists is empty.
 | [isEqual]             | Checks if two lists are equal.
@@ -133,7 +133,7 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [key]: https://github.com/nodef/extra-lists/wiki/key
 [value]: https://github.com/nodef/extra-lists/wiki/value
 [entry]: https://github.com/nodef/extra-lists/wiki/entry
-[submap]: https://github.com/nodef/extra-lists/wiki/submap
+[subset]: https://github.com/nodef/extra-lists/wiki/subset
 [isEmpty]: https://github.com/nodef/extra-lists/wiki/isEmpty
 [isEqual]: https://github.com/nodef/extra-lists/wiki/isEqual
 [compare]: https://github.com/nodef/extra-lists/wiki/compare
@@ -145,4 +145,4 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [:moon:]: https://www.npmjs.com/package/extra-lists.min
 [:ledger:]: https://unpkg.com/extra-lists/
 [fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
-[:vhs:]: https://asciinema.org/a/340743
+[:vhs:]: https://asciinema.org/a/341134
