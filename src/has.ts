@@ -7,7 +7,7 @@ import type {Lists} from './_types';
  * @param x lists
  * @param k key?
  */
-function isKey<T, U>(x: Lists<T, U>, k: T): boolean {
+function has<T, U>(x: Lists<T, U>, k: T): boolean {
   return iterableIsValue(keys(x), k);
 }
-export default isKey;
+export default has;
