@@ -16,7 +16,7 @@ ownership model, and the UnsafeCell type. [(1)]
 ```javascript
 const lists = require('extra-lists');
 // import * as lists from 'extra-lists';
-// import * as lists from 'https://unpkg.com/extra-lists@2.1.0/index.mjs'; (deno)
+// import * as lists from 'https://unpkg.com/extra-lists@2.2.2/index.mjs'; (deno)
 
 var x = [['a', 'b', 'c', 'd', 'e'], [1, 2, 3, 4, 5]];
 lists.filter(x, v => v % 2 === 1);
