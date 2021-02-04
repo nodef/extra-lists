@@ -1,4 +1,12 @@
-[Lists] is a pair of key list and value list, with unique keys. [:running:] [:vhs:] [:package:] [:moon:] [:ledger:]
+[Lists] is a pair of key list and value list, with unique keys.<br>
+:package: [NPM](https://www.npmjs.com/package/extra-lists),
+:smiley_cat: [GitHub](https://github.com/orgs/nodef/packages?repo_name=extra-lists),
+:running: [RunKit](https://npm.runkit.com/extra-lists),
+:vhs: [Asciinema](https://asciinema.org/a/341134),
+:moon: [Minified](https://www.npmjs.com/package/extra-lists.min),
+:scroll: [Files](https://unpkg.com/extra-lists/),
+:newspaper: [JSDoc](https://nodef.github.io/extra-lists/),
+:blue_book: [Wiki](https://github.com/nodef/extra-lists/wiki/).
 
 In this fourth Crust of Rust video, we cover smart pointers and interior
 mutability, by re-implementing the Cell, RefCell, and Rc types from the
@@ -118,7 +126,6 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [head]: https://github.com/nodef/extra-lists/wiki/head
 [take]: https://github.com/nodef/extra-lists/wiki/take
 [shift]: https://github.com/nodef/extra-lists/wiki/shift
-[fromLists]: https://github.com/nodef/extra-lists/wiki/fromLists
 [concat]: https://github.com/nodef/extra-lists/wiki/concat
 [flat]: https://github.com/nodef/extra-lists/wiki/flat
 [chunk]: https://github.com/nodef/extra-lists/wiki/chunk
@@ -147,9 +154,4 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [find]: https://github.com/nodef/extra-lists/wiki/find
 [search]: https://github.com/nodef/extra-lists/wiki/search
 [scanWhile]: https://github.com/nodef/extra-lists/wiki/scanWhile
-[:running:]: https://npm.runkit.com/extra-lists
-[:package:]: https://www.npmjs.com/package/extra-lists
-[:moon:]: https://www.npmjs.com/package/extra-lists.min
-[:ledger:]: https://unpkg.com/extra-lists/
 [fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
-[:vhs:]: https://asciinema.org/a/341134
