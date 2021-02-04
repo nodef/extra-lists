@@ -1,9 +1,5 @@
 [Lists] is a pair of key list and value list, with unique keys. [:running:] [:vhs:] [:package:] [:moon:] [:ledger:]
 
-Methods as separate packages:
-- `@extra-lists/find`: use [rollup] to bundle this es module.
-- `@extra-lists/find.min`: use in browser ([browserify], [uglify-js]).
-
 In this fourth Crust of Rust video, we cover smart pointers and interior
 mutability, by re-implementing the Cell, RefCell, and Rc types from the
 standard library. As part of that, we cover when those types are useful,
@@ -11,7 +7,13 @@ how they work, and what the equivalent thread-safe versions of these types
 are. In the process, we go over some of the finer details of Rust's
 ownership model, and the UnsafeCell type. [(1)]
 
+Methods as separate packages:
+- `@extra-lists/find`: use [rollup] to bundle this es module.
+- `@extra-lists/find.min`: use in browser ([browserify], [uglify-js]).
+
 > Stability: Experimental.
+
+<br>
 
 ```javascript
 const lists = require('extra-lists');
@@ -44,58 +46,63 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 // ]
 ```
 
-### reference
-
-| Method                | Action
-|-----------------------|-------
-| [is]                  | Checks if value is lists.
-| [get]                 | Gets value at key.
-| [set]                 | Sets value at key.
-| [remove]              | Deletes an entry.
-| [swap]                | Exchanges two values.
-| [size]                | Gets size of lists.
-|                       | 
-| [head]                | Gets first entry.
-| [take]                | Keeps first n entries only.
-| [shift]               | Removes first entry.
-| [fromEntries]         | Creates lists from entries.
-|                       | 
-| [concat]              | Appends entries from all lists.
-| [flat]                | Flattens nested lists to given depth.
-| [chunk]               | Breaks lists into chunks of given size.
-| [filterAt]            | Gets lists with given keys.
-|                       | 
-| [map]                 | Updates values based on map function.
-| [filter]              | Keeps entries which pass a test.
-| [reduce]              | Reduces values to a single value.
-| [range]               | Finds smallest and largest entries.
-| [count]               | Counts values which satisfy a test.
-| [partition]           | Segregates values by test result.
-| [cartesianProduct]    | Lists cartesian product of lists.
-| [some]                | Checks if any value satisfies a test.
-| [zip]                 | Combines matching entries from all lists.
-|                       | 
-| [union]               | Gives lists present in any lists.
-| [intersection]        | Gives entries present in both lists.
-| [difference]          | Gives entries of lists not present in another.
-| [symmetricDifference] | Gives entries not present in both lists.
-| [isDisjoint]          | Checks if lists have no common keys.
-|                       | 
-| [key]                 | Picks an arbitrary key.
-| [value]               | Picks an arbitrary value.
-| [entry]               | Picks an arbitrary entry.
-| [subset]              | Picks an arbitrary submap.
-|                       | 
-| [isEmpty]             | Checks if lists is empty.
-| [isEqual]             | Checks if two lists are equal.
-| [compare]             | Compares two lists.
-| [find]                | Finds a value passing a test.
-| [search]              | Finds key of an entry passing a test.
-| [scanWhile]           | Finds key of first entry not passing a test.
-
+<br>
 <br>
 
-[![nodef](https://merferry.glitch.me/card/extra-lists.svg)](https://nodef.github.io)
+
+## Index
+
+| Method                | Action                                         |
+| --------------------- | ---------------------------------------------- |
+| [is]                  | Checks if value is lists.                      |
+| [get]                 | Gets value at key.                             |
+| [set]                 | Sets value at key.                             |
+| [remove]              | Deletes an entry.                              |
+| [swap]                | Exchanges two values.                          |
+| [size]                | Gets size of lists.                            |
+|                       |
+| [head]                | Gets first entry.                              |
+| [take]                | Keeps first n entries only.                    |
+| [shift]               | Removes first entry.                           |
+| [fromEntries]         | Creates lists from entries.                    |
+|                       |
+| [concat]              | Appends entries from all lists.                |
+| [flat]                | Flattens nested lists to given depth.          |
+| [chunk]               | Breaks lists into chunks of given size.        |
+| [filterAt]            | Gets lists with given keys.                    |
+|                       |
+| [map]                 | Updates values based on map function.          |
+| [filter]              | Keeps entries which pass a test.               |
+| [reduce]              | Reduces values to a single value.              |
+| [range]               | Finds smallest and largest entries.            |
+| [count]               | Counts values which satisfy a test.            |
+| [partition]           | Segregates values by test result.              |
+| [cartesianProduct]    | Lists cartesian product of lists.              |
+| [some]                | Checks if any value satisfies a test.          |
+| [zip]                 | Combines matching entries from all lists.      |
+|                       |
+| [union]               | Gives lists present in any lists.              |
+| [intersection]        | Gives entries present in both lists.           |
+| [difference]          | Gives entries of lists not present in another. |
+| [symmetricDifference] | Gives entries not present in both lists.       |
+| [isDisjoint]          | Checks if lists have no common keys.           |
+|                       |
+| [key]                 | Picks an arbitrary key.                        |
+| [value]               | Picks an arbitrary value.                      |
+| [entry]               | Picks an arbitrary entry.                      |
+| [subset]              | Picks an arbitrary submap.                     |
+|                       |
+| [isEmpty]             | Checks if lists is empty.                      |
+| [isEqual]             | Checks if two lists are equal.                 |
+| [compare]             | Compares two lists.                            |
+| [find]                | Finds a value passing a test.                  |
+| [search]              | Finds key of an entry passing a test.          |
+| [scanWhile]           | Finds key of first entry not passing a test.   |
+
+<br>
+<br>
+
+[![](https://img.youtube.com/vi/8O0Nt9qY_vo/maxresdefault.jpg)](https://www.youtube.com/watch?v=8O0Nt9qY_vo)
 
 [(1)]: https://www.youtube.com/watch?v=8O0Nt9qY_vo
 [Lists]: https://www.npmjs.com/package/@extra-lists/is
