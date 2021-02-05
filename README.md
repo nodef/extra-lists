@@ -8,12 +8,9 @@
 :newspaper: [JSDoc](https://nodef.github.io/extra-lists/),
 :blue_book: [Wiki](https://github.com/nodef/extra-lists/wiki/).
 
-In this fourth Crust of Rust video, we cover smart pointers and interior
-mutability, by re-implementing the Cell, RefCell, and Rc types from the
-standard library. As part of that, we cover when those types are useful,
-how they work, and what the equivalent thread-safe versions of these types
-are. In the process, we go over some of the finer details of Rust's
-ownership model, and the UnsafeCell type. [(1)]
+All functions except `from*()` take lists as 1st parameter. **Lists** are an
+an alternative to [entries], represented as a pair of keys, values. Unless
+*entries* are implemented as structs by [v8], lists should be more efficient.
 
 Methods as separate packages:
 - `@extra-lists/find`: use [rollup] to bundle this es module.
@@ -112,8 +109,9 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 
 [![](https://img.youtube.com/vi/8O0Nt9qY_vo/maxresdefault.jpg)](https://www.youtube.com/watch?v=8O0Nt9qY_vo)
 
-[(1)]: https://www.youtube.com/watch?v=8O0Nt9qY_vo
 [Lists]: https://www.npmjs.com/package/@extra-lists/is
+[entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
+[v8]: https://v8.dev
 [browserify]: https://www.npmjs.com/package/browserify
 [rollup]: https://www.npmjs.com/package/rollup
 [uglify-js]: https://www.npmjs.com/package/uglify-js
