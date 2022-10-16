@@ -1,34 +1,94 @@
-export type tillFn            = (dones: boolean[]) => boolean;
-export type reduceFn<T, U, V> = (acc: V, v: U, k: T, x: Lists<T, U>) => V;
-export type calledFn<T, U>    = (v: U, k: T, x: Lists<T, U>) => void;
-export type testFn<T, U>      = (v: U, k: T, x: Lists<T, U>) => boolean;
-export type mapFn<T, U, V>    = (v: U, k: T, x: Lists<T, U>) => V;
-export type combineFn<T>      = (a: T, b: T) => T;
-export type compareFn<T>      = (a: T, b: T) => number;
-export type getFn<T>          = () => T;
-export type Entries<T, U>     = Iterable<[T, U]>;
-export type Lists<T, U>       = [Iterable<T>, Iterable<U>];
+import {
+  IDENTITY,
+  COMPARE,
+} from "extra-function";
+
+
+
+
+// TYPES
+// =====
+
+
+/** Entries is a list of key-value pairs, with unique keys. */
+export type Entries<K, V> = Iterable<[K, V]>;
+/** Lists is a pair of key list and value list, with unique keys. */
+export type Lists<K, V> = [Iterable<K>, Iterable<V>];
 
 
 /**
- * Compares two values.
+ * Handle reading of a single value.
+ * @returns value
+ */
+export type ReadFunction<T> = () => T;
+
+
+/**
+ * Handle combining of two values.
+ * @param a a value
+ * @param b another value
+ * @returns combined value
+ */
+export type CombineFunction<T> = (a: T, b: T) => T;
+
+
+/**
+ * Handle comparison of two values.
  * @param a a value
  * @param b another value
  * @returns a<b: -ve, a=b: 0, a>b: +ve
  */
- function cmp<T>(a: T, b: T): number {
-  return a<b? -1:(a>b? 1:0);
-}
+export type CompareFunction<T> = (a: T, b: T) => number;
 
 
 /**
- * Gives same value.
- * @param v a value
- * @returns v
+ * Handle processing of values in lists.
+ * @param v value in lists
+ * @param k key of value in lists
+ * @param x lists containing the value
  */
- function id<T>(v: T): T {
-  return v;
-}
+export type ProcessFunction<K, V> = (v: V, k: K, x: Lists<K, V>) => void;
+
+
+/**
+ * Handle selection of values in lists.
+ * @param v value in lists
+ * @param k key of value in lists
+ * @param x lists containing the value
+ * @returns selected?
+ */
+export type TestFunction<K, V> = (v: V, k: K, x: Lists<K, V>) => boolean;
+
+
+/**
+ * Handle transformation of a value to another.
+ * @param v value in lists
+ * @param k key of value in lists
+ * @param x lists containing the value
+ * @returns transformed value
+ */
+export type MapFunction<K, V, W> = (v: V, k: K, x: Lists<K, V>) => W;
+
+
+/**
+ * Handle reduction of multiple values into a single value.
+ * @param acc accumulator (temporary result)
+ * @param v value in lists
+ * @param k key of value in lists
+ * @param x lists containing the value
+ * @returns reduced value
+ */
+export type ReduceFunction<K, V, W> = (acc: W, v: V, k: K, x: Lists<K, V>) => W;
+
+
+/**
+ * Handle ending of combined lists.
+ * @param dones iᵗʰ lists done?
+ * @returns combined lists done?
+ */
+export type EndFunction = (dones: boolean[]) => boolean;
+
+
 
 
 import {cartesianProduct as mapCartesianProduct} from 'extra-map';
@@ -38,7 +98,7 @@ import {cartesianProduct as mapCartesianProduct} from 'extra-map';
  * @param xs lists
  * @param fm map function (vs, i)
  */
-function* cartesianProduct<T, U, V=U>(xs: Lists<T, U>[], fm: mapFn<number, Lists<T, U>, Lists<T, U>|V>=null): Iterable<Lists<T, U>|V> {
+function* cartesianProduct<T, U, V=U>(xs: Lists<T, U>[], fm: MapFunction<number, Lists<T, U>, Lists<T, U>|V>=null): Iterable<Lists<T, U>|V> {
   var fm = fm||id, ys = xs.map(x => new Map(entries(x)));
   yield* mapCartesianProduct(ys, (vs, i) => fm([vs.keys(), vs.values()], i, null)) as any;
 }
@@ -70,7 +130,7 @@ import {compare as entriesCompare} from 'extra-entries';
  * @param fm map function (v, k, x)
  * @returns x=y: 0, otherwise: -ve/+ve
  */
-function compare<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc?: compareFn<U|V>, fm?: mapFn<T, U, U|V>): number {
+function compare<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc?: CompareFunction<U|V>, fm?: MapFunction<T, U, U|V>): number {
   return entriesCompare(entries(x), entries(y), fc, fm as any);
 }
 
@@ -95,7 +155,7 @@ import {count as mapCount} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function count<T, U>(x: Lists<T, U>, ft: testFn<T, U>): number {
+function count<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): number {
   return mapCount(entries(x), ft as any);
 }
 
@@ -108,7 +168,7 @@ import {countAs as mapCountAs} from 'extra-map';
  * @param fm map function (v, k, x)
  * @returns Map {value => count}
  */
-function countAs<T, U, V=U>(x: Lists<T, U>, fm: mapFn<T, U, U|V>=null): Map<U|V, number> {
+function countAs<T, U, V=U>(x: Lists<T, U>, fm: MapFunction<T, U, U|V>=null): Map<U|V, number> {
   return mapCountAs(entries(x), fm as any);
 }
 
@@ -173,7 +233,7 @@ import {every as mapEvery} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k ,x)
  */
-function every<T, U>(x: Lists<T, U>, ft: testFn<T, U>): boolean {
+function every<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): boolean {
   return mapEvery(entries(x), ft as any);
 }
 
@@ -183,7 +243,7 @@ function every<T, U>(x: Lists<T, U>, ft: testFn<T, U>): boolean {
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function filter<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Lists<T, U> {
+function filter<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): Lists<T, U> {
   var ks = [], vs = [];
   for(var [k, v] of entries(x))
     if(ft(v, k, x)) { ks.push(k); vs.push(v); }
@@ -211,7 +271,7 @@ import {find as mapFind} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function find<T, U>(x: Lists<T, U>, ft: testFn<T, U>): U {
+function find<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): U {
   return mapFind(entries(x), ft as any);
 }
 
@@ -223,12 +283,12 @@ import {findAll as mapFindAll} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function findAll<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Iterable<U> {
+function findAll<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): Iterable<U> {
   return mapFindAll(entries(x), ft as any);
 }
 
 
-function flatTo<T>(x: Lists<T, any>, n: number, fm: mapFn<T, any, any>, ft: testFn<T, any>, a: Map<T, any>): Map<T, any> {
+function flatTo<T>(x: Lists<T, any>, n: number, fm: MapFunction<T, any, any>, ft: TestFunction<T, any>, a: Map<T, any>): Map<T, any> {
   for(var [k, v] of entries(x)) {
     var v1 = fm(v, k, x);
     if(n!==0 && ft(v1, k, x)) flatTo(v1, n-1, fm, ft, a);
@@ -244,7 +304,7 @@ function flatTo<T>(x: Lists<T, any>, n: number, fm: mapFn<T, any, any>, ft: test
  * @param fm map function (v, k, x)
  * @param ft test function (v, k, x)
  */
-function flat<T>(x: Lists<T, any>, n: number=-1, fm: mapFn<T, any, any>=null, ft: testFn<T, any>=null): Lists<T, any> {
+function flat<T>(x: Lists<T, any>, n: number=-1, fm: MapFunction<T, any, any>=null, ft: TestFunction<T, any>=null): Lists<T, any> {
   var fm = fm||id, ft = ft||is;
   var a = flatTo(x, n, fm, ft, new Map());
   return [a.keys(), a.values()];
@@ -259,7 +319,7 @@ import {concat$} from 'extra-map'
  * @param fm map function (v, k, x)
  * @param ft test function (v, k, x)
  */
-function flatMap<T>(x: Lists<T, any>, fm: mapFn<T, any, any>=null, ft: testFn<T, any>=null): Lists<T, any> {
+function flatMap<T>(x: Lists<T, any>, fm: MapFunction<T, any, any>=null, ft: TestFunction<T, any>=null): Lists<T, any> {
   var fm = fm||id, ft = ft||is;
   var a = new Map();
   for(var [k, v] of entries(x)) {
@@ -278,7 +338,7 @@ import {forEach as mapForEach} from 'extra-map';
  * @param x lists
  * @param fc called function (v, k, x)
  */
-function forEach<T, U>(x: Lists<T, U>, fc: calledFn<T, U>): void {
+function forEach<T, U>(x: Lists<T, U>, fc: ProcessFunction<T, U>): void {
   mapForEach(entries(x), fc as any);
 }
 
@@ -348,7 +408,7 @@ function has<T, U>(x: Lists<T, U>, k: T): boolean {
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  */
-function hasEntry<T, U, V=U>(x: Lists<T, U>, e: [T, U], fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
+function hasEntry<T, U, V=U>(x: Lists<T, U>, e: [T, U], fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): boolean {
   var fc = fc||cmp, fm = fm||id, [k, v] = e;
   var [k, v] = e, u = get(x, k);
   return fc(fm(u, k, x), v)===0;
@@ -374,7 +434,7 @@ import {hasSubset as mapHasSubset} from 'extra-map';
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  */
-function hasSubset<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
+function hasSubset<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): boolean {
   return mapHasSubset(new Map(entries(x)), entries(y), fc, fm as any);
 }
 
@@ -386,7 +446,7 @@ function hasSubset<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: compareFn<U|V>
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  */
-function hasValue<T, U, V=U>(x: Lists<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
+function hasValue<T, U, V=U>(x: Lists<T, U>, v: U, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): boolean {
   return searchValue(x, v, fc, fm)!==undefined;
 }
 
@@ -411,7 +471,7 @@ import {intersection as mapIntersection} from 'extra-map';
  * @param y another lists
  * @param fc combine function (a, b)
  */
-function intersection<T, U>(x: Lists<T, U>, y: Lists<T, U>, fc: combineFn<U>=null): Lists<T, U> {
+function intersection<T, U>(x: Lists<T, U>, y: Lists<T, U>, fc: CombineFunction<U>=null): Lists<T, U> {
   var a = mapIntersection(new Map(entries(x)), entries(y), fc);
   return [a.keys(), a.values()];
 }
@@ -458,7 +518,7 @@ function isEmpty<T, U>(x: Lists<T, U>): boolean {
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  */
-function isEqual<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
+function isEqual<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): boolean {
   return compare(x, y, fc, fm)===0;
 }
 
@@ -511,7 +571,7 @@ function length<T, U>(x: Lists<T, U>): number {
  * @param x lists
  * @param fm map function (v, k, x)
 s */
-function map<T, U, V>(x: Lists<T, U>, fm: mapFn<T, U, V>) {
+function map<T, U, V>(x: Lists<T, U>, fm: MapFunction<T, U, V>) {
   var ks = [], vs = [];
   for(var [k, v] of entries(x))
   { ks.push(k); vs.push(fm(v, k, x)); }
@@ -526,7 +586,7 @@ function map<T, U, V>(x: Lists<T, U>, fm: mapFn<T, U, V>) {
  * @param fm map function (v, k, x)
  * @returns [key, value]
  */
-function max<T, U, V=U>(x: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): [T, U] {
+function max<T, U, V=U>(x: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): [T, U] {
   return range(x, fc, fm)[1];
 }
 
@@ -538,7 +598,7 @@ function max<T, U, V=U>(x: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U,
  * @param fm map function (v, k, x)
  * @returns [key, value]
  */
-function min<T, U, V=U>(x: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): [T, U] {
+function min<T, U, V=U>(x: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): [T, U] {
   return range(x, fc, fm)[0];
 }
 
@@ -549,7 +609,7 @@ function min<T, U, V=U>(x: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U,
  * @param ft test function (v, k, x)
  * @returns [satisfies, doesnt]
  */
-function partition<T, U>(x: Lists<T, U>, ft: testFn<T, U>): [Lists<T, U>, Lists<T, U>] {
+function partition<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): [Lists<T, U>, Lists<T, U>] {
   var tk = [], tv = [], fk = [], fv = [];
   for(var [k, v] of entries(x)) {
     if(ft(v, k, x)) { tk.push(k); tv.push(v); }
@@ -565,7 +625,7 @@ function partition<T, U>(x: Lists<T, U>, ft: testFn<T, U>): [Lists<T, U>, Lists<
  * @param fm map function (v, k, x)
  * @returns Map {key => values}
  */
-function partitionAs<T, U, V=U>(x: Lists<T, U>, fm: mapFn<T, U, U|V>=null): Map<U|V, Lists<T, U>> {
+function partitionAs<T, U, V=U>(x: Lists<T, U>, fm: MapFunction<T, U, U|V>=null): Map<U|V, Lists<T, U>> {
   var fm = fm||id, a = new Map();
   for(var [k, v] of entries(x)) {
     var v1 = fm(v, k, x);
@@ -586,7 +646,7 @@ import {range as mapRange} from 'extra-map';
  * @param fm map function (v, k, x)
  * @returns [smallest, largest]
  */
-function range<T, U, V=U>(x: Lists<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): [[T, U], [T, U]] {
+function range<T, U, V=U>(x: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): [[T, U], [T, U]] {
   return mapRange(entries(x), fc, fm as any);
 }
 
@@ -599,7 +659,7 @@ import {reduce as mapReduce} from 'extra-map';
  * @param fr reduce function (acc, v, k, x)
  * @param acc initial value
  */
-function reduce<T, U, V=U>(x: Lists<T, U>, fr: reduceFn<T, U, U|V>, acc?: U|V): U|V {
+function reduce<T, U, V=U>(x: Lists<T, U>, fr: ReduceFunction<T, U, U|V>, acc?: U|V): U|V {
   var A = arguments.length, es = entries(x);
   return A>2? mapReduce(es, fr as any, acc) : mapReduce(es, fr as any);
 }
@@ -610,7 +670,7 @@ function reduce<T, U, V=U>(x: Lists<T, U>, fr: reduceFn<T, U, U|V>, acc?: U|V): 
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function reject<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Lists<T, U> {
+function reject<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): Lists<T, U> {
   var ks = [], vs = [];
   for(var [k, v] of entries(x))
     if(!ft(v, k, x)) { ks.push(k); vs.push(v); }
@@ -651,7 +711,7 @@ import {scanUntil as mapScanUntil} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function scanUntil<T, U>(x: Lists<T, U>, ft: testFn<T, U>): T {
+function scanUntil<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): T {
   return mapScanUntil(entries(x), ft as any);
 }
 
@@ -663,7 +723,7 @@ import {scanWhile as mapScanWhile} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function scanWhile<T, U>(x: Lists<T, U>, ft: testFn<T, U>): T {
+function scanWhile<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): T {
   return mapScanWhile(entries(x), ft as any);
 }
 
@@ -675,7 +735,7 @@ import {search as mapSearch} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function search<T, U>(x: Lists<T, U>, ft: testFn<T, U>): T {
+function search<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): T {
   return mapSearch(entries(x), ft as any);
 }
 
@@ -687,7 +747,7 @@ import {searchAll as mapSearchAll} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function searchAll<T, U>(x: Lists<T, U>, ft: testFn<T, U>): Iterable<T> {
+function searchAll<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): Iterable<T> {
   return mapSearchAll(entries(x), ft as any);
 }
 
@@ -701,7 +761,7 @@ import {searchValue as mapSearchValue} from 'extra-map';
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  */
-function searchValue<T, U, V=U>(x: Lists<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): T {
+function searchValue<T, U, V=U>(x: Lists<T, U>, v: U, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): T {
   return mapSearchValue(entries(x), v, fc, fm as any);
 }
 
@@ -715,7 +775,7 @@ import {searchValueAll as mapSearchValueAll} from 'extra-map';
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  */
-function searchValueAll<T, U, V=U>(x: Lists<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): Iterable<T> {
+function searchValueAll<T, U, V=U>(x: Lists<T, U>, v: U, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): Iterable<T> {
   return mapSearchValueAll(entries(x), v, fc, fm as any);
 }
 
@@ -761,7 +821,7 @@ import {some as mapSome} from 'extra-map';
  * @param x lists
  * @param ft test function (v, k, x)
  */
-function some<T, U>(x: Lists<T, U>, ft: testFn<T, U>=null): boolean {
+function some<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>=null): boolean {
   return mapSome(entries(x), ft as any);
 }
 
@@ -851,7 +911,7 @@ import {union as mapUnion} from 'extra-map';
  * @param y another lists
  * @param fc combine function (a, b)
  */
-function union<T, U>(x: Lists<T, U>, y: Lists<T, U>, fc: combineFn<U>=null): Lists<T, U> {
+function union<T, U>(x: Lists<T, U>, y: Lists<T, U>, fc: CombineFunction<U>=null): Lists<T, U> {
   var a = mapUnion(entries(x), entries(y), fc);
   return [a.keys(), a.values()];
 }
@@ -898,7 +958,7 @@ import {zip as mapZip} from 'extra-map';
  * @param ft till function (dones) (some)
  * @param vd default value
  */
-function zip<T, U, V=U>(xs: Lists<T, U>[], fm: mapFn<T, U[], U[]|V>=null, ft: tillFn=null, vd?: U): Lists<T, U[]|V> {
+function zip<T, U, V=U>(xs: Lists<T, U>[], fm: MapFunction<T, U[], U[]|V>=null, ft: EndFunction=null, vd?: U): Lists<T, U[]|V> {
   var a = mapZip(xs.map(x => new Map(entries(x))), fm as any, ft, vd);
   return [a.keys(), a.values() as any];
 }
