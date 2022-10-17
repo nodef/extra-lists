@@ -2,6 +2,22 @@ import {
   IDENTITY,
   COMPARE,
 } from "extra-function";
+import {
+  isList   as _isList,
+  length   as _length,
+  hasValue as _hasValue,
+  map      as _map,
+} from "extra-iterable";
+import {
+  get     as _get,
+  count   as _count,
+  countAs as _countAs,
+  range   as _range,
+} from "extra-entries";
+import {
+  compare as _compare,
+  getAll  as _getAll,
+} from "extra-map";
 
 
 
@@ -91,6 +107,297 @@ export type EndFunction = (dones: boolean[]) => boolean;
 
 
 
+// METHODS
+// =======
+
+// ABOUT
+// -----
+
+/**
+ * Check if value is lists.
+ * @param v value
+ * @returns v is lists?
+ */
+export function is<K, V>(v: any): v is Lists<K, V> {
+  return Array.isArray(v) && v.length===2 && _isList(v[0]) && _isList(v[1]);
+}
+
+
+/**
+ * List all keys.
+ * @param x lists
+ * @returns k₀, k₁, ... | kᵢ = x[0][i]
+ */
+export function keys<K, V>(x: Lists<K, V>): Iterable<K> {
+  return x[0];
+}
+
+
+/**
+ * List all values.
+ * @param x lists
+ * @returns v₀, v₁, ... | vᵢ = x[1][i]
+ */
+export function values<K, V>(x: Lists<K, V>): Iterable<V> {
+  return x[1];
+}
+
+
+/**
+ * List all key-value pairs.
+ * @param x lists
+ * @returns [k₀, v₀], [k₁, v₁], ... | kᵢ = x[0][i], vᵢ = x[1][i]
+ */
+export function* entries<K, V>(x: Lists<K, V>): Entries<K, V> {
+  var iv = values(x)[Symbol.iterator]();
+  for (var k of keys(x))
+    yield [k, iv.next().value];
+}
+
+
+
+
+// GENERATE
+// --------
+
+/**
+ * Convert lists to entries.
+ * @param x entries
+ * @returns x as lists
+ */
+export function fromEntries<K, V>(x: Entries<K, V>): Lists<K, V> {
+  var a = new Map(x);
+  return [a.keys(), a.values()];
+}
+
+
+
+
+// LENGTH
+// ------
+
+export {isEmpty} from "extra-iterable";
+
+
+/**
+ * Find the length of lists.
+ * @param x lists
+ * @returns |x|
+ */
+export function length<K, V>(x: Lists<K, V>): number {
+  return _length(keys(x));
+}
+export {length as size};
+
+
+
+
+// COMPARE
+// -------
+
+/**
+ * Compare two lists.
+ * @param x lists
+ * @param y another lists
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns x=y: 0, otherwise: -ve/+ve
+ */
+export function compare<K, V, W=V>(x: Lists<K, V>, y: Lists<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): number {
+  return _compare(new Map(entries(x)), new Map(entries(y)), fc, fm as any);
+}
+
+
+/**
+ * Check if two lists are equal.
+ * @param x lists
+ * @param y another lists
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns x=y?
+ */
+export function isEqual<K, V, W=V>(x: Lists<K, V>, y: Lists<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
+  return compare(x, y, fc, fm)===0;
+}
+
+
+
+
+// GET/SET
+// -------
+
+/**
+ * Get value at key.
+ * @param x lists
+ * @param k key
+ * @returns x[k]
+ */
+export function get<K, V>(x: Lists<K, V>, k: K): V {
+  return _get(entries(x), k);
+}
+
+
+/**
+ * Gets values at keys.
+ * @param x lists
+ * @param ks keys
+ * @returns x[k₀], x[k₁], ... | [k₀, k₁, ...] = ks
+ */
+export function getAll<K, V>(x: Lists<K, V>, ks: K[]): Iterable<V> {
+  return _getAll(new Map(entries(x)), ks);
+}
+
+
+/**
+ * Get value at path in nested lists.
+ * @param x nested lists
+ * @param p path
+ * @returns x[k₀][k₁][...] | [k₀, k₁, ...] = p
+ */
+export function getPath<K>(x: Lists<K, any>, p: K[]): any {
+  for (var k of p)
+    x = is(x)? get(x, k) : undefined;
+  return x;
+}
+
+
+/**
+ * Check if lists has a key.
+ * @param x lists
+ * @param k search key
+ * @returns k ∈ keys(x)?
+ */
+export function hasKey<K, V>(x: Lists<K, V>, k: K): boolean {
+  return _hasValue(keys(x), k);
+}
+export {hasKey as has};
+
+
+/**
+ * Check if lists has a value.
+ * @param x lists
+ * @param v search value
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns v ∈ values(x)?
+ */
+export function hasValue<K, V, W=V>(x: Lists<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
+  return searchValue(x, v, fc, fm)!==undefined;
+}
+
+
+/**
+ * Set value at key.
+ * @param x lists
+ * @param k key
+ * @param v value
+ * @returns x' | x' = x; x'[k] = v
+ */
+export function set<K, V>(x: Lists<K, V>, k: K, v: V): Lists<K, V> {
+  var ks = [], vs = [];
+  for (var [j, u] of entries(x)) {
+    ks.push(j);
+    vs.push(j===k? v : u);
+  }
+  return [ks, vs];
+}
+
+
+/**
+ * Exchange two values.
+ * @param x lists
+ * @param k a key
+ * @param l another key
+ * @returns x' | x' = x; x'[k] = x[l]; x'[l] = x[k]
+ */
+export function swap<K, V>(x: Lists<K, V>, k: K, l: K): Lists<K, V> {
+  var ks = _map(keys(x), j => j===k? l : (j===l? k : j));
+  return [ks, values(x)];
+}
+
+
+/**
+ * Remove value at key.
+ * @param x lists
+ * @param k key
+ * @returns x - [k, v] | v = x[k]
+ */
+export function remove<K, V>(x: Lists<K, V>, k: K): Lists<K, V> {
+  var ks = [], vs = [];
+  for (var [j, u] of entries(x)) {
+    if (j===k) continue;
+    ks.push(j);
+    vs.push(u);
+  }
+  return [ks, vs];
+}
+
+
+
+
+// PROPERTY
+// --------
+
+/**
+ * Count values which satisfy a test.
+ * @param x lists
+ * @param ft test function (v, k, x)
+ * @returns Σtᵢ | tᵢ = 1 if ft(vᵢ) else 0; [kᵢ, vᵢ] ∈ x
+ */
+export function count<K, V>(x: Lists<K, V>, ft: TestFunction<K, V>): number {
+  return _count(entries(x), ft as any);
+}
+
+
+/**
+ * Count occurrences of values.
+ * @param x lists
+ * @param fm map function (v, k, x)
+ * @returns Map \{value ⇒ count\}
+ */
+export function countAs<K, V, W=V>(x: Lists<K, V>, fm: MapFunction<K, V, V|W> | null=null): Map<V|W, number> {
+  return _countAs(entries(x), fm as any);
+}
+
+
+/**
+ * Find smallest value.
+ * @param x lists
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns v | v ≤ vᵢ; [kᵢ, vᵢ] ∈ x
+ */
+export function min<K, V, W=V>(x: Lists<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [K, V] {
+  return rangeEntries(x, fc, fm)[0][1];
+}
+
+
+/**
+ * Find largest value.
+ * @param x lists
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns v | v ≥ vᵢ; [kᵢ, vᵢ] ∈ x
+ */
+export function max<K, V, W=V>(x: Lists<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [K, V] {
+  return rangeEntries(x, fc, fm)[1][1];
+}
+
+
+/**
+ * Find smallest and largest values.
+ * @param x lists
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns [min_value, max_value]
+ */
+export function range<K, V, W=V>(x: Lists<K, V>, fc: CompareFunction<V|W>=null, fm: MapFunction<K, V, V|W>=null): [[K, V], [K, V]] {
+  return _range(entries(x), fc, fm as any);
+}
+
+
+
+
 import {cartesianProduct as mapCartesianProduct} from 'extra-map';
 
 /**
@@ -120,21 +427,6 @@ function chunk<T, U>(x: Lists<T, U>, n: number=1, s: number=n): Lists<T, U>[] {
 }
 
 
-import {compare as entriesCompare} from 'extra-entries';
-
-/**
- * Compares two lists.
- * @param x lists
- * @param y another lists
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- * @returns x=y: 0, otherwise: -ve/+ve
- */
-function compare<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc?: CompareFunction<U|V>, fm?: MapFunction<T, U, U|V>): number {
-  return entriesCompare(entries(x), entries(y), fc, fm as any);
-}
-
-
 import {concat as iterableConcat} from 'extra-iterable';
 
 /**
@@ -145,31 +437,6 @@ function concat<T, U>(...xs: Lists<T, U>[]): Lists<T, U> {
   var ks = iterableConcat(...xs.map(keys));
   var vs = iterableConcat(...xs.map(values));
   return [ks, vs];
-}
-
-
-import {count as mapCount} from 'extra-map';
-
-/**
- * Counts values which satisfy a test.
- * @param x lists
- * @param ft test function (v, k, x)
- */
-function count<T, U>(x: Lists<T, U>, ft: TestFunction<T, U>): number {
-  return mapCount(entries(x), ft as any);
-}
-
-
-import {countAs as mapCountAs} from 'extra-map';
-
-/**
- * Counts occurrences of values.
- * @param x lists
- * @param fm map function (v, k, x)
- * @returns Map {value => count}
- */
-function countAs<T, U, V=U>(x: Lists<T, U>, fm: MapFunction<T, U, U|V>=null): Map<U|V, number> {
-  return mapCountAs(entries(x), fm as any);
 }
 
 
@@ -200,17 +467,6 @@ function drop<T, U>(x: Lists<T, U>, n: number=1): Lists<T, U> {
   var ks = iterableDrop(keys(x), n);
   var vs = iterableDrop(values(x), n);
   return [ks, vs];
-}
-
-
-/**
- * Lists all key-value pairs.
- * @param x lists
- */
-function* entries<T, U>(x: Lists<T, U>): Entries<T, U> {
-  var vi = values(x)[Symbol.iterator]();
-  for(var k of keys(x))
-    yield [k, vi.next().value];
 }
 
 
@@ -344,64 +600,6 @@ function forEach<T, U>(x: Lists<T, U>, fc: ProcessFunction<T, U>): void {
 
 
 /**
- * Creates lists from entries.
- * @param es entries
- */
-function fromEntries<T, U>(es: Entries<T, U>): Lists<T, U> {
-  var a = new Map(es);
-  return [a.keys(), a.values()];
-}
-
-
-import {get as entriesGet} from 'extra-entries';
-
-/**
- * Gets value at key.
- * @param x lists
- * @param k key
- */
-function get<T, U>(x: Lists<T, U>, k: T): U {
-  return entriesGet(entries(x), k);
-}
-
-
-import {getAll as mapGetAll} from 'extra-map';
-
-/**
- * Gets values at keys.
- * @param x lists
- * @param ks keys
- */
-function getAll<T, U>(x: Lists<T, U>, ks: T[]): Iterable<U> {
-  return mapGetAll(new Map(entries(x)), ks);
-}
-
-
-/**
- * Gets value at path in nested lists.
- * @param x nested lists
- * @param p path
- */
-function getPath<T>(x: Lists<T, any>, p: T[]): any {
-  for(var k of p)
-    x = is(x)? get(x, k) : undefined;
-  return x;
-}
-
-
-import {hasValue as iterableHasValue} from 'extra-iterable';
-
-/**
- * Checks if lists has a key.
- * @param x lists
- * @param k key?
- */
-function has<T, U>(x: Lists<T, U>, k: T): boolean {
-  return iterableHasValue(keys(x), k);
-}
-
-
-/**
  * Checks if map has an entry.
  * @param x a map
  * @param e entry?
@@ -439,18 +637,6 @@ function hasSubset<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: CompareFunctio
 }
 
 
-/**
- * Checks if lists has a value.
- * @param x lists
- * @param v value?
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- */
-function hasValue<T, U, V=U>(x: Lists<T, U>, v: U, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): boolean {
-  return searchValue(x, v, fc, fm)!==undefined;
-}
-
-
 import {head as iterableHead} from 'extra-iterable';
 
 /**
@@ -477,17 +663,6 @@ function intersection<T, U>(x: Lists<T, U>, y: Lists<T, U>, fc: CombineFunction<
 }
 
 
-import {isList} from 'extra-iterable';
-
-/**
- * Checks if value is lists.
- * @param v value
- */
-function is<T, U>(v: any): v is Lists<T, U> {
-  return Array.isArray(v) && v.length===2 && isList(v[0]) && isList(v[1]);
-}
-
-
 import {isDisjoint as setIsDisjoint} from 'extra-set';
 
 /**
@@ -497,29 +672,6 @@ import {isDisjoint as setIsDisjoint} from 'extra-set';
  */
 function isDisjoint<T, U>(x: Lists<T, U>, y: Lists<T, U>): boolean {
   return setIsDisjoint(new Set(keys(x)), keys(y));
-}
-
-
-import {isEmpty as iterableIsEmpty} from 'extra-iterable';
-
-/**
- * Checks if lists is empty.
- * @param x lists
- */
-function isEmpty<T, U>(x: Lists<T, U>): boolean {
-  return iterableIsEmpty(keys(x));
-}
-
-
-/**
- * Checks if two lists are equal.
- * @param x lists
- * @param y another lists
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- */
-function isEqual<T, U, V=U>(x: Lists<T, U>, y: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): boolean {
-  return compare(x, y, fc, fm)===0;
 }
 
 
@@ -549,24 +701,6 @@ function key<T, U>(x: Lists<T, U>, r: number=Math.random()): T {
 
 
 /**
- * Lists all keys.
- * @param x lists
- */
-function keys<T, U>(x: Lists<T, U>): Iterable<T> {
-  return x[0];
-}
-
-
-/**
- * Gets size of lists.
- * @param x lists
- */
-function length<T, U>(x: Lists<T, U>): number {
-  return size(x);
-}
-
-
-/**
  * Updates values based on map function.
  * @param x lists
  * @param fm map function (v, k, x)
@@ -576,30 +710,6 @@ function map<T, U, V>(x: Lists<T, U>, fm: MapFunction<T, U, V>) {
   for(var [k, v] of entries(x))
   { ks.push(k); vs.push(fm(v, k, x)); }
   return [ks, vs];
-}
-
-
-/**
- * Finds largest value.
- * @param x lists
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- * @returns [key, value]
- */
-function max<T, U, V=U>(x: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): [T, U] {
-  return range(x, fc, fm)[1];
-}
-
-
-/**
- * Finds smallest entry.
- * @param x lists
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- * @returns [key, value]
- */
-function min<T, U, V=U>(x: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): [T, U] {
-  return range(x, fc, fm)[0];
 }
 
 
@@ -634,20 +744,6 @@ function partitionAs<T, U, V=U>(x: Lists<T, U>, fm: MapFunction<T, U, U|V>=null)
     ak.push(k); av.push(v);
   }
   return a;
-}
-
-
-import {range as mapRange} from 'extra-map';
-
-/**
- * Finds smallest and largest entries.
- * @param x lists
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- * @returns [smallest, largest]
- */
-function range<T, U, V=U>(x: Lists<T, U>, fc: CompareFunction<U|V>=null, fm: MapFunction<T, U, U|V>=null): [[T, U], [T, U]] {
-  return mapRange(entries(x), fc, fm as any);
 }
 
 
@@ -688,19 +784,6 @@ function rejectAt<T, U>(x: Lists<T, U>, ks: T[]): Lists<T, U> {
   for(var [k, v] of entries(x))
     if(!ks.includes(k)) { js.push(k); us.push(v); }
   return [js, us];
-}
-
-
-/**
- * Deletes an entry.
- * @param x lists
- * @param k key
- */
-function remove<T, U>(x: Lists<T, U>, k: T): Lists<T, U> {
-  var ks = [], vs = [];
-  for(var [j, u] of entries(x))
-    if(j!==k) { ks.push(j); vs.push(u); }
-  return [ks, vs];
 }
 
 
@@ -781,36 +864,11 @@ function searchValueAll<T, U, V=U>(x: Lists<T, U>, v: U, fc: CompareFunction<U|V
 
 
 /**
- * Sets value at key.
- * @param x lists
- * @param k key
- * @param v value
- */
-function set<T, U>(x: Lists<T, U>, k: T, v: U): Lists<T, U> {
-  var ks = [], vs = [];
-  for(var [j, u] of entries(x))
-  { ks.push(j); vs.push(j===k? v : u); }
-  return [ks, vs];
-}
-
-
-/**
  * Removes first entry.
  * @param x lists
  */
 function shift<T, U>(x: Lists<T, U>): Lists<T, U> {
   return drop(x, 1);
-}
-
-
-import {size as iterableSize} from 'extra-iterable';
-
-/**
- * Gets size of lists.
- * @param x lists
- */
-function size<T, U>(x: Lists<T, U>): number {
-  return iterableSize(keys(x));
 }
 
 
@@ -850,20 +908,6 @@ import {subsets as mapSubsets} from 'extra-map';
 function* subsets<T, U>(x: Lists<T, U>, n: number=-1): Iterable<Lists<T, U>> {
   for(var a of mapSubsets(new Map(entries(x)), n))
     yield [a.keys(), a.values()];
-}
-
-
-import {map as iterableMap} from 'extra-iterable';
-
-/**
- * Exchanges two values.
- * @param x lists
- * @param k a key
- * @param l another key
- */
-function swap<T, U>(x: Lists<T, U>, k: T, l: T): Lists<T, U> {
-  var ks = iterableMap(keys(x), j => j===k? l : (j===l? k : j));
-  return [ks, values(x)];
 }
 
 
@@ -937,15 +981,6 @@ import {value as arrayValue} from 'extra-array';
  */
 function value<T, U>(x: Lists<T, U>, r: number=Math.random()): U {
   return arrayValue([...values(x)], r);
-}
-
-
-/**
- * Lists all values.
- * @param x lists
- */
-function values<T, U>(x: Lists<T, U>): Iterable<U> {
-  return x[1];
 }
 
 
