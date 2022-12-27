@@ -98,6 +98,7 @@ function generateWiki(ds) {
   for (var d of ds) {
     var f = `wiki/${d.name}.md`;
     if (!rkind.test(d.kind)) continue;
+    if (d.description) d.description = d.description.replace(/\[📘\]\(.+?\)/g, '').trim();
     if (!fs.existsSync(f))  {
       var txt = build.wikiMarkdown(d, {owner, repo, useWiki});
       build.writeFileText(f, txt);
@@ -145,7 +146,7 @@ function updateReadme(ds) {
   var dm = new Map(ds.map(d => [d.name, d]));
   var txt = build.readFileText('README.md');
   txt = build.wikiUpdateIndex(txt, dm, readmeDescription);
-  txt = build.wikiUpdateLinkReferences(txt, dm, {owner, repo});
+  txt = build.wikiUpdateLinkReferences(txt, dm, {owner, repo, useWiki: true});
   build.writeFileText('README.md', txt);
 }
 

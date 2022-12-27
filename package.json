@@ -1,6 +1,6 @@
 {
   "name": "extra-lists",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Lists is a pair of key list and value list, with unique keys.",
   "main": "index.js",
   "module": "index.mjs",
@@ -34,12 +34,12 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "extra-array": "^3.1.14",
     "extra-build": "^2.2.39",
-    "extra-entries": "^3.0.39",
+    "extra-entries": "^3.0.40",
     "extra-function": "^1.1.20",
     "extra-iterable": "^3.2.11",
     "extra-map": "^3.1.13",
     "extra-set": "^3.1.5",
     "rollup-plugin-cleanup": "^3.2.1",
-    "rollup-plugin-dts": "^5.0.0"
+    "rollup-plugin-dts": "^5.1.0"
   }
 }
