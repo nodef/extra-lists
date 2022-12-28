@@ -1,54 +1,62 @@
-[Lists] is a pair of key list and value list, with unique keys.<br>
-:package: [NPM](https://www.npmjs.com/package/extra-lists),
-:smiley_cat: [GitHub](https://github.com/orgs/nodef/packages?repo_name=extra-lists),
-:running: [RunKit](https://npm.runkit.com/extra-lists),
-:vhs: [Asciinema](https://asciinema.org/a/341134),
-:moon: [Minified](https://www.npmjs.com/package/extra-lists.min),
-:scroll: [Files](https://unpkg.com/extra-lists/),
-:newspaper: [JSDoc](https://nodef.github.io/extra-lists/),
-:blue_book: [Wiki](https://github.com/nodef/extra-lists/wiki/).
+A collection of functions for operating upon Lists.<br>
+📦 [Node.js](https://www.npmjs.com/package/extra-lists),
+🌐 [Web](https://www.npmjs.com/package/extra-lists.web),
+📜 [Files](https://unpkg.com/extra-lists/),
+📰 [Docs](https://nodef.github.io/extra-lists/),
+📘 [Wiki](https://github.com/nodef/extra-lists/wiki/).
 
-All functions except `from*()` take lists as 1st parameter. **Lists** are an
-an alternative to [entries], represented as a pair of keys, values. Unless
-*entries* are implemented as structs by [v8], lists should be more efficient.
+**Lists** is a pair of key list and value list, with unique keys. It is an an
+alternative to [Entries]. Unless *entries* are implemented as structs by [v8],
+lists should be more space efficient. This package includes common functions
+related to querying **about** lists, **generating** them, **comparing** one with
+another, finding their **size**, **adding** and **removing** entries, obtaining
+its **properties**, getting a **part** of it, getting a **subset** entries in
+it, **finding** an entry in it, performing **functional** operations,
+**manipulating** it in various ways, **combining** together lists or its
+sub-entries, of performing **set operations** upon it. All functions except
+`fromEntries()` take lists as 1st parameter.
 
-Methods as separate packages:
-- `@extra-lists/find`: use [rollup] to bundle this es module.
-- `@extra-lists/find.min`: use in browser ([browserify], [uglify-js]).
+This package is available in *Node.js* and *Web* formats. The web format
+is exposed as `extra_lists` standalone variable and can be loaded from
+[jsDelivr CDN].
 
-> Stability: Experimental.
+> Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
+
+[v8]: https://v8.dev
+[Entries]: https://github.com/nodef/extra-lists/wiki/Entries
+[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-lists.web/index.js
 
 <br>
 
 ```javascript
 const lists = require('extra-lists');
 // import * as lists from 'extra-lists';
-// import * as lists from 'https://unpkg.com/extra-lists@2.2.2/index.mjs'; (deno)
+// import * as lists from 'https://unpkg.com/extra-lists/index.mjs'; (deno)
 
 var x = [['a', 'b', 'c', 'd', 'e'], [1, 2, 3, 4, 5]];
 lists.filter(x, v => v % 2 === 1);
-// [ [ 'a', 'c', 'e' ], [ 1, 3, 5 ] ]
+// → [ [ 'a', 'c', 'e' ], [ 1, 3, 5 ] ]
 
 var x = [['a', 'b', 'c', 'd'], [1, 2, -3, -4]];
 lists.some(x, v => v > 10);
-// false
+// → false
 
 var x = [['a', 'b', 'c', 'd'], [1, 2, -3, -4]];
 lists.min(x);
-// [ 'd', -4 ]
+// → -4
 
 var x = [['a', 'b', 'c'], [1, 2, 3]];
 [...lists.subsets(x)].map(a => [[...a[0]], [...a[1]]]);
-// [
-//   [ [], [] ],
-//   [ [ 'a' ], [ 1 ] ],
-//   [ [ 'b' ], [ 2 ] ],
-//   [ [ 'a', 'b' ], [ 1, 2 ] ],
-//   [ [ 'c' ], [ 3 ] ],
-//   [ [ 'a', 'c' ], [ 1, 3 ] ],
-//   [ [ 'b', 'c' ], [ 2, 3 ] ],
-//   [ [ 'a', 'b', 'c' ], [ 1, 2, 3 ] ]
-// ]
+// → [
+// →   [ [], [] ],
+// →   [ [ 'a' ], [ 1 ] ],
+// →   [ [ 'b' ], [ 2 ] ],
+// →   [ [ 'a', 'b' ], [ 1, 2 ] ],
+// →   [ [ 'c' ], [ 3 ] ],
+// →   [ [ 'a', 'c' ], [ 1, 3 ] ],
+// →   [ [ 'b', 'c' ], [ 2, 3 ] ],
+// →   [ [ 'a', 'b', 'c' ], [ 1, 2, 3 ] ]
+// → ]
 ```
 
 <br>
@@ -57,99 +65,161 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 
 ## Index
 
-| Method                | Action                                         |
-| --------------------- | ---------------------------------------------- |
-| [is]                  | Checks if value is lists.                      |
-| [get]                 | Gets value at key.                             |
-| [set]                 | Sets value at key.                             |
-| [remove]              | Deletes an entry.                              |
-| [swap]                | Exchanges two values.                          |
-| [size]                | Gets size of lists.                            |
-|                       |
-| [head]                | Gets first entry.                              |
-| [take]                | Keeps first n entries only.                    |
-| [shift]               | Removes first entry.                           |
-| [fromEntries]         | Creates lists from entries.                    |
-|                       |
-| [concat]              | Appends entries from all lists.                |
-| [flat]                | Flattens nested lists to given depth.          |
-| [chunk]               | Breaks lists into chunks of given size.        |
-| [filterAt]            | Gets lists with given keys.                    |
-|                       |
-| [map]                 | Updates values based on map function.          |
-| [filter]              | Keeps entries which pass a test.               |
-| [reduce]              | Reduces values to a single value.              |
-| [range]               | Finds smallest and largest entries.            |
-| [count]               | Counts values which satisfy a test.            |
-| [partition]           | Segregates values by test result.              |
-| [cartesianProduct]    | Lists cartesian product of lists.              |
-| [some]                | Checks if any value satisfies a test.          |
-| [zip]                 | Combines matching entries from all lists.      |
-|                       |
-| [union]               | Gives lists present in any lists.              |
-| [intersection]        | Gives entries present in both lists.           |
-| [difference]          | Gives entries of lists not present in another. |
-| [symmetricDifference] | Gives entries not present in both lists.       |
-| [isDisjoint]          | Checks if lists have no common keys.           |
-|                       |
-| [key]                 | Picks an arbitrary key.                        |
-| [value]               | Picks an arbitrary value.                      |
-| [entry]               | Picks an arbitrary entry.                      |
-| [subset]              | Picks an arbitrary submap.                     |
-|                       |
-| [isEmpty]             | Checks if lists is empty.                      |
-| [isEqual]             | Checks if two lists are equal.                 |
-| [compare]             | Compares two lists.                            |
-| [find]                | Finds a value passing a test.                  |
-| [search]              | Finds key of an entry passing a test.          |
-| [scanWhile]           | Finds key of first entry not passing a test.   |
+| Property | Description |
+|  ----  |  ----  |
+| [is] | Check if value is lists. |
+| [keys] | List all keys. |
+| [values] | List all values. |
+| [entries] | List all key-value pairs. |
+|  |  |
+| [fromEntries] | Convert lists to entries. |
+|  |  |
+| [size] | Find the size of lists. |
+| [isEmpty] | Check if lists is empty. |
+|  |  |
+| [compare] | Compare two lists. |
+| [isEqual] | Check if two lists are equal. |
+|  |  |
+| [get] | Get value at key. |
+| [getAll] | Gets values at keys. |
+| [getPath] | Get value at path in nested lists. |
+| [hasPath] | Check if nested lists has a path. |
+| [set] | Set value at key. |
+| [swap] | Exchange two values. |
+| [remove] | Remove value at key. |
+|  |  |
+| [head] | Get first entry from lists (default order). |
+| [tail] | Get lists without its first entry (default order). |
+| [take] | Keep first n entries only (default order). |
+| [drop] | Remove first n entries (default order). |
+|  |  |
+| [count] | Count values which satisfy a test. |
+| [countAs] | Count occurrences of values. |
+| [min] | Find smallest value. |
+| [minEntry] | Find smallest entry. |
+| [max] | Find largest value. |
+| [maxEntry] | Find largest entry. |
+| [range] | Find smallest and largest values. |
+| [rangeEntries] | Find smallest and largest entries. |
+|  |  |
+| [subsets] | List all possible subsets. |
+| [randomKey] | Pick an arbitrary key. |
+| [randomValue] | Pick an arbitrary value. |
+| [randomEntry] | Pick an arbitrary entry. |
+| [randomSubset] | Pick an arbitrary subset. |
+|  |  |
+| [has] | Check if lists has a key. |
+| [hasValue] | Check if lists has a value. |
+| [hasEntry] | Check if lists has an entry. |
+| [hasSubset] | Check if lists has a subset. |
+| [find] | Find first value passing a test (default order). |
+| [findAll] | Find values passing a test. |
+| [search] | Finds key of an entry passing a test. |
+| [searchAll] | Find keys of entries passing a test. |
+| [searchValue] | Find a key with given value. |
+| [searchValueAll] | Find keys with given value. |
+|  |  |
+| [forEach] | Call a function for each value. |
+| [some] | Check if any value satisfies a test. |
+| [every] | Check if all values satisfy a test. |
+| [map] | Transform values of entries. |
+| [reduce] | Reduce values of entries to a single value. |
+| [filter] | Keep entries which pass a test. |
+| [filterAt] | Keep entries with given keys. |
+| [reject] | Discard entries which pass a test. |
+| [rejectAt] | Discard entries with given keys. |
+| [flat] | Flatten nested lists to given depth. |
+| [flatMap] | Flatten nested lists, based on map function. |
+| [zip] | Combine matching entries from all lists. |
+|  |  |
+| [partition] | Segregate values by test result. |
+| [partitionAs] | Segregate entries by similarity. |
+| [chunk] | Break lists into chunks of given size. |
+|  |  |
+| [concat] | Append entries from all lists, preferring last. |
+| [join] | Join lists together into a string. |
+|  |  |
+| [isDisjoint] | Check if lists have no common keys. |
+| [unionKeys] | Obtain keys present in any lists. |
+| [union] | Obtain entries present in any lists. |
+| [intersection] | Obtain entries present in both lists. |
+| [difference] | Obtain entries not present in another lists. |
+| [symmetricDifference] | Obtain entries not present in both lists. |
 
 <br>
 <br>
+
 
 [![](https://img.youtube.com/vi/8O0Nt9qY_vo/maxresdefault.jpg)](https://www.youtube.com/watch?v=8O0Nt9qY_vo)
+[![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
+[![Coverage Status](https://coveralls.io/repos/github/nodef/extra-lists/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-lists?branch=master)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b7e8da9d66573c40ad3e/test_coverage)](https://codeclimate.com/github/nodef/extra-lists/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b7e8da9d66573c40ad3e/maintainability)](https://codeclimate.com/github/nodef/extra-lists/maintainability)
 
-[Lists]: https://www.npmjs.com/package/@extra-lists/is
-[entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
-[v8]: https://v8.dev
-[browserify]: https://www.npmjs.com/package/browserify
-[rollup]: https://www.npmjs.com/package/rollup
-[uglify-js]: https://www.npmjs.com/package/uglify-js
+
 [is]: https://github.com/nodef/extra-lists/wiki/is
-[get]: https://github.com/nodef/extra-lists/wiki/get
-[set]: https://github.com/nodef/extra-lists/wiki/set
-[remove]: https://github.com/nodef/extra-lists/wiki/remove
-[swap]: https://github.com/nodef/extra-lists/wiki/swap
+[keys]: https://github.com/nodef/extra-lists/wiki/keys
+[values]: https://github.com/nodef/extra-lists/wiki/values
+[entries]: https://github.com/nodef/extra-lists/wiki/entries
+[fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
 [size]: https://github.com/nodef/extra-lists/wiki/size
+[isEmpty]: https://github.com/nodef/extra-lists/wiki/isEmpty
+[compare]: https://github.com/nodef/extra-lists/wiki/compare
+[isEqual]: https://github.com/nodef/extra-lists/wiki/isEqual
+[get]: https://github.com/nodef/extra-lists/wiki/get
+[getAll]: https://github.com/nodef/extra-lists/wiki/getAll
+[getPath]: https://github.com/nodef/extra-lists/wiki/getPath
+[hasPath]: https://github.com/nodef/extra-lists/wiki/hasPath
+[set]: https://github.com/nodef/extra-lists/wiki/set
+[swap]: https://github.com/nodef/extra-lists/wiki/swap
+[remove]: https://github.com/nodef/extra-lists/wiki/remove
 [head]: https://github.com/nodef/extra-lists/wiki/head
+[tail]: https://github.com/nodef/extra-lists/wiki/tail
 [take]: https://github.com/nodef/extra-lists/wiki/take
-[shift]: https://github.com/nodef/extra-lists/wiki/shift
-[concat]: https://github.com/nodef/extra-lists/wiki/concat
-[flat]: https://github.com/nodef/extra-lists/wiki/flat
-[chunk]: https://github.com/nodef/extra-lists/wiki/chunk
-[filterAt]: https://github.com/nodef/extra-lists/wiki/filterAt
-[map]: https://github.com/nodef/extra-lists/wiki/map
-[filter]: https://github.com/nodef/extra-lists/wiki/filter
-[reduce]: https://github.com/nodef/extra-lists/wiki/reduce
-[range]: https://github.com/nodef/extra-lists/wiki/range
+[drop]: https://github.com/nodef/extra-lists/wiki/drop
 [count]: https://github.com/nodef/extra-lists/wiki/count
-[partition]: https://github.com/nodef/extra-lists/wiki/partition
-[cartesianProduct]: https://github.com/nodef/extra-lists/wiki/cartesianProduct
+[countAs]: https://github.com/nodef/extra-lists/wiki/countAs
+[min]: https://github.com/nodef/extra-lists/wiki/min
+[minEntry]: https://github.com/nodef/extra-lists/wiki/minEntry
+[max]: https://github.com/nodef/extra-lists/wiki/max
+[maxEntry]: https://github.com/nodef/extra-lists/wiki/maxEntry
+[range]: https://github.com/nodef/extra-lists/wiki/range
+[rangeEntries]: https://github.com/nodef/extra-lists/wiki/rangeEntries
+[subsets]: https://github.com/nodef/extra-lists/wiki/subsets
+[randomKey]: https://github.com/nodef/extra-lists/wiki/randomKey
+[randomValue]: https://github.com/nodef/extra-lists/wiki/randomValue
+[randomEntry]: https://github.com/nodef/extra-lists/wiki/randomEntry
+[randomSubset]: https://github.com/nodef/extra-lists/wiki/randomSubset
+[has]: https://github.com/nodef/extra-lists/wiki/has
+[hasValue]: https://github.com/nodef/extra-lists/wiki/hasValue
+[hasEntry]: https://github.com/nodef/extra-lists/wiki/hasEntry
+[hasSubset]: https://github.com/nodef/extra-lists/wiki/hasSubset
+[find]: https://github.com/nodef/extra-lists/wiki/find
+[findAll]: https://github.com/nodef/extra-lists/wiki/findAll
+[search]: https://github.com/nodef/extra-lists/wiki/search
+[searchAll]: https://github.com/nodef/extra-lists/wiki/searchAll
+[searchValue]: https://github.com/nodef/extra-lists/wiki/searchValue
+[searchValueAll]: https://github.com/nodef/extra-lists/wiki/searchValueAll
+[forEach]: https://github.com/nodef/extra-lists/wiki/forEach
 [some]: https://github.com/nodef/extra-lists/wiki/some
+[every]: https://github.com/nodef/extra-lists/wiki/every
+[map]: https://github.com/nodef/extra-lists/wiki/map
+[reduce]: https://github.com/nodef/extra-lists/wiki/reduce
+[filter]: https://github.com/nodef/extra-lists/wiki/filter
+[filterAt]: https://github.com/nodef/extra-lists/wiki/filterAt
+[reject]: https://github.com/nodef/extra-lists/wiki/reject
+[rejectAt]: https://github.com/nodef/extra-lists/wiki/rejectAt
+[flat]: https://github.com/nodef/extra-lists/wiki/flat
+[flatMap]: https://github.com/nodef/extra-lists/wiki/flatMap
 [zip]: https://github.com/nodef/extra-lists/wiki/zip
+[partition]: https://github.com/nodef/extra-lists/wiki/partition
+[partitionAs]: https://github.com/nodef/extra-lists/wiki/partitionAs
+[chunk]: https://github.com/nodef/extra-lists/wiki/chunk
+[concat]: https://github.com/nodef/extra-lists/wiki/concat
+[join]: https://github.com/nodef/extra-lists/wiki/join
+[isDisjoint]: https://github.com/nodef/extra-lists/wiki/isDisjoint
+[unionKeys]: https://github.com/nodef/extra-lists/wiki/unionKeys
 [union]: https://github.com/nodef/extra-lists/wiki/union
 [intersection]: https://github.com/nodef/extra-lists/wiki/intersection
 [difference]: https://github.com/nodef/extra-lists/wiki/difference
 [symmetricDifference]: https://github.com/nodef/extra-lists/wiki/symmetricDifference
-[isDisjoint]: https://github.com/nodef/extra-lists/wiki/isDisjoint
-[key]: https://github.com/nodef/extra-lists/wiki/key
-[value]: https://github.com/nodef/extra-lists/wiki/value
-[entry]: https://github.com/nodef/extra-lists/wiki/entry
-[subset]: https://github.com/nodef/extra-lists/wiki/subset
-[isEmpty]: https://github.com/nodef/extra-lists/wiki/isEmpty
-[isEqual]: https://github.com/nodef/extra-lists/wiki/isEqual
-[compare]: https://github.com/nodef/extra-lists/wiki/compare
-[find]: https://github.com/nodef/extra-lists/wiki/find
-[search]: https://github.com/nodef/extra-lists/wiki/search
-[scanWhile]: https://github.com/nodef/extra-lists/wiki/scanWhile
-[fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
