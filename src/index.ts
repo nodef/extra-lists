@@ -960,7 +960,8 @@ export function chunk<K, V>(x: Lists<K, V>, n: number=1, s: number=n): Lists<K, 
 export function concat<K, V>(...xs: Lists<K, V>[]): Lists<K, V> {
   var ks = iterableConcat(...xs.map(keys));
   var vs = iterableConcat(...xs.map(values));
-  return [ks, vs];
+  var a  = mapFromLists([ks, vs]);
+  return [a.keys(), a.values()];
 }
 
 
