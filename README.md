@@ -16,9 +16,9 @@ it, **finding** an entry in it, performing **functional** operations,
 sub-entries, of performing **set operations** upon it. All functions except
 `fromEntries()` take lists as 1st parameter.
 
-This package is available in *Node.js* and *Web* formats. The web format
-is exposed as `extra_lists` standalone variable and can be loaded from
-[jsDelivr CDN].
+This package is available in *Node.js* and *Web* formats. To use it on the web,
+simply use the `extra_lists` global variable after loading with a `<script>`
+tag from the [jsDelivr CDN].
 
 > Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
 
@@ -29,24 +29,24 @@ is exposed as `extra_lists` standalone variable and can be loaded from
 <br>
 
 ```javascript
-const lists = require('extra-lists');
-// import * as lists from 'extra-lists';
-// import * as lists from 'https://unpkg.com/extra-lists/index.mjs'; (deno)
+const xlists = require('extra-lists');
+// import * as xlists from 'extra-lists';
+// import * as xlists from 'https://unpkg.com/extra-lists/index.mjs'; (deno)
 
 var x = [['a', 'b', 'c', 'd', 'e'], [1, 2, 3, 4, 5]];
-lists.filter(x, v => v % 2 === 1);
+xlists.filter(x, v => v % 2 === 1);
 // → [ [ 'a', 'c', 'e' ], [ 1, 3, 5 ] ]
 
 var x = [['a', 'b', 'c', 'd'], [1, 2, -3, -4]];
-lists.some(x, v => v > 10);
+xlists.some(x, v => v > 10);
 // → false
 
 var x = [['a', 'b', 'c', 'd'], [1, 2, -3, -4]];
-lists.min(x);
+xlists.min(x);
 // → -4
 
 var x = [['a', 'b', 'c'], [1, 2, 3]];
-[...lists.subsets(x)].map(a => [[...a[0]], [...a[1]]]);
+[...xlists.subsets(x)].map(a => [[...a[0]], [...a[1]]]);
 // → [
 // →   [ [], [] ],
 // →   [ [ 'a' ], [ 1 ] ],

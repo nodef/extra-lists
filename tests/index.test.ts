@@ -1,4 +1,4 @@
-import * as array from "extra-array";
+import * as xarray from "extra-array";
 import {
   is,
   keys,
@@ -686,9 +686,9 @@ test("zip", () => {
   expect(a.map(x => [...x])).toStrictEqual([["a", "b"], [[1, 10], [2, 20]]]);  // shortest
   var a = zip([x, y], ([a, b]) => a + b);
   expect(a.map(x => [...x])).toStrictEqual([["a", "b"], [11, 22]]);
-  var a = zip([x, y], null, array.some);
+  var a = zip([x, y], null, xarray.some);
   expect(a.map(x => [...x])).toStrictEqual([["a", "b"], [[1, 10], [2, 20]]]);  // shortest
-  var a = zip([x, y], null, array.every, 0);
+  var a = zip([x, y], null, xarray.every, 0);
   expect(a.map(x => [...x])).toStrictEqual([["a", "b", "c"], [[1, 10], [2, 20], [3, 0]]]);  // longest
 });
 
