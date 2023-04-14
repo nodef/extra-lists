@@ -150,6 +150,17 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 <br>
 
 
+## References
+
+- [What is the most efficient way to deep clone an object in JavaScript?](https://stackoverflow.com/a/122704/1413259)
+- [structuredClone() global function : MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone)
+- [Attain vs. Obtain: What’s The Difference? : Dictionary.com](https://www.dictionary.com/e/attain-vs-obtain/)
+- [Acronyms in CamelCase [closed]](https://stackoverflow.com/q/15526107/1413259)
+
+<br>
+<br>
+
+
 [![](https://img.youtube.com/vi/8O0Nt9qY_vo/maxresdefault.jpg)](https://www.youtube.com/watch?v=8O0Nt9qY_vo)
 [![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
 [![Coverage Status](https://coveralls.io/repos/github/nodef/extra-lists/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-lists?branch=master)
