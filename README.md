@@ -166,6 +166,7 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 [![Coverage Status](https://coveralls.io/repos/github/nodef/extra-lists/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-lists?branch=master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b7e8da9d66573c40ad3e/test_coverage)](https://codeclimate.com/github/nodef/extra-lists/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b7e8da9d66573c40ad3e/maintainability)](https://codeclimate.com/github/nodef/extra-lists/maintainability)
+![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-lists)
 
 
 [is]: https://github.com/nodef/extra-lists/wiki/is
