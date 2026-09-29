@@ -1,9 +1,9 @@
 A collection of functions for operating upon Lists.<br>
-📦 [Node.js](https://www.npmjs.com/package/extra-lists),
-🌐 [Web](https://www.npmjs.com/package/extra-lists.web),
-📜 [Files](https://unpkg.com/extra-lists/),
-📰 [Docs](https://nodef.github.io/extra-lists/),
-📘 [Wiki](https://github.com/nodef/extra-lists/wiki/).
+
+▌
+📦 [JSR](https://jsr.io/@nodef/extra-lists),
+📦 [NPM](https://www.npmjs.com/package/extra-lists),
+📰 [Docs](https://jsr.io/@nodef/extra-lists/doc).
 
 **Lists** is a pair of key list and value list, with unique keys. It is an an
 alternative to [Entries]. Unless *entries* are implemented as structs by [v8],
@@ -16,22 +16,13 @@ it, **finding** an entry in it, performing **functional** operations,
 sub-entries, of performing **set operations** upon it. All functions except
 `fromEntries()` take lists as 1st parameter.
 
-This package is available in *Node.js* and *Web* formats. To use it on the web,
-simply use the `extra_lists` global variable after loading with a `<script>`
-tag from the [jsDelivr CDN].
-
-> Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
-
 [v8]: https://v8.dev
-[Entries]: https://github.com/nodef/extra-lists/wiki/Entries
-[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-lists.web/index.js
+[Entries]: https://jsr.io/@nodef/extra-lists/doc/~/Entries
 
 <br>
 
 ```javascript
-const xlists = require('extra-lists');
-// import * as xlists from 'extra-lists';
-// import * as xlists from 'https://unpkg.com/extra-lists/index.mjs'; (deno)
+import * as xlists from "jsr:@nodef/extra-lists";
 
 var x = [['a', 'b', 'c', 'd', 'e'], [1, 2, 3, 4, 5]];
 xlists.filter(x, v => v % 2 === 1);
@@ -161,77 +152,74 @@ var x = [['a', 'b', 'c'], [1, 2, 3]];
 <br>
 
 
-[![](https://img.youtube.com/vi/8O0Nt9qY_vo/maxresdefault.jpg)](https://www.youtube.com/watch?v=8O0Nt9qY_vo)
+[![](https://raw.githubusercontent.com/qb40/designs/gh-pages/0/image/11.png)](https://wolfram77.github.io)<br>
 [![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
-[![Coverage Status](https://coveralls.io/repos/github/nodef/extra-lists/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-lists?branch=master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/b7e8da9d66573c40ad3e/test_coverage)](https://codeclimate.com/github/nodef/extra-lists/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b7e8da9d66573c40ad3e/maintainability)](https://codeclimate.com/github/nodef/extra-lists/maintainability)
 ![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-lists)
 
 
-[is]: https://github.com/nodef/extra-lists/wiki/is
-[keys]: https://github.com/nodef/extra-lists/wiki/keys
-[values]: https://github.com/nodef/extra-lists/wiki/values
-[entries]: https://github.com/nodef/extra-lists/wiki/entries
-[fromEntries]: https://github.com/nodef/extra-lists/wiki/fromEntries
-[size]: https://github.com/nodef/extra-lists/wiki/size
-[isEmpty]: https://github.com/nodef/extra-lists/wiki/isEmpty
-[compare]: https://github.com/nodef/extra-lists/wiki/compare
-[isEqual]: https://github.com/nodef/extra-lists/wiki/isEqual
-[get]: https://github.com/nodef/extra-lists/wiki/get
-[getAll]: https://github.com/nodef/extra-lists/wiki/getAll
-[getPath]: https://github.com/nodef/extra-lists/wiki/getPath
-[hasPath]: https://github.com/nodef/extra-lists/wiki/hasPath
-[set]: https://github.com/nodef/extra-lists/wiki/set
-[swap]: https://github.com/nodef/extra-lists/wiki/swap
-[remove]: https://github.com/nodef/extra-lists/wiki/remove
-[head]: https://github.com/nodef/extra-lists/wiki/head
-[tail]: https://github.com/nodef/extra-lists/wiki/tail
-[take]: https://github.com/nodef/extra-lists/wiki/take
-[drop]: https://github.com/nodef/extra-lists/wiki/drop
-[count]: https://github.com/nodef/extra-lists/wiki/count
-[countAs]: https://github.com/nodef/extra-lists/wiki/countAs
-[min]: https://github.com/nodef/extra-lists/wiki/min
-[minEntry]: https://github.com/nodef/extra-lists/wiki/minEntry
-[max]: https://github.com/nodef/extra-lists/wiki/max
-[maxEntry]: https://github.com/nodef/extra-lists/wiki/maxEntry
-[range]: https://github.com/nodef/extra-lists/wiki/range
-[rangeEntries]: https://github.com/nodef/extra-lists/wiki/rangeEntries
-[subsets]: https://github.com/nodef/extra-lists/wiki/subsets
-[randomKey]: https://github.com/nodef/extra-lists/wiki/randomKey
-[randomValue]: https://github.com/nodef/extra-lists/wiki/randomValue
-[randomEntry]: https://github.com/nodef/extra-lists/wiki/randomEntry
-[randomSubset]: https://github.com/nodef/extra-lists/wiki/randomSubset
-[has]: https://github.com/nodef/extra-lists/wiki/has
-[hasValue]: https://github.com/nodef/extra-lists/wiki/hasValue
-[hasEntry]: https://github.com/nodef/extra-lists/wiki/hasEntry
-[hasSubset]: https://github.com/nodef/extra-lists/wiki/hasSubset
-[find]: https://github.com/nodef/extra-lists/wiki/find
-[findAll]: https://github.com/nodef/extra-lists/wiki/findAll
-[search]: https://github.com/nodef/extra-lists/wiki/search
-[searchAll]: https://github.com/nodef/extra-lists/wiki/searchAll
-[searchValue]: https://github.com/nodef/extra-lists/wiki/searchValue
-[searchValueAll]: https://github.com/nodef/extra-lists/wiki/searchValueAll
-[forEach]: https://github.com/nodef/extra-lists/wiki/forEach
-[some]: https://github.com/nodef/extra-lists/wiki/some
-[every]: https://github.com/nodef/extra-lists/wiki/every
-[map]: https://github.com/nodef/extra-lists/wiki/map
-[reduce]: https://github.com/nodef/extra-lists/wiki/reduce
-[filter]: https://github.com/nodef/extra-lists/wiki/filter
-[filterAt]: https://github.com/nodef/extra-lists/wiki/filterAt
-[reject]: https://github.com/nodef/extra-lists/wiki/reject
-[rejectAt]: https://github.com/nodef/extra-lists/wiki/rejectAt
-[flat]: https://github.com/nodef/extra-lists/wiki/flat
-[flatMap]: https://github.com/nodef/extra-lists/wiki/flatMap
-[zip]: https://github.com/nodef/extra-lists/wiki/zip
-[partition]: https://github.com/nodef/extra-lists/wiki/partition
-[partitionAs]: https://github.com/nodef/extra-lists/wiki/partitionAs
-[chunk]: https://github.com/nodef/extra-lists/wiki/chunk
-[concat]: https://github.com/nodef/extra-lists/wiki/concat
-[join]: https://github.com/nodef/extra-lists/wiki/join
-[isDisjoint]: https://github.com/nodef/extra-lists/wiki/isDisjoint
-[unionKeys]: https://github.com/nodef/extra-lists/wiki/unionKeys
-[union]: https://github.com/nodef/extra-lists/wiki/union
-[intersection]: https://github.com/nodef/extra-lists/wiki/intersection
-[difference]: https://github.com/nodef/extra-lists/wiki/difference
-[symmetricDifference]: https://github.com/nodef/extra-lists/wiki/symmetricDifference
+[is]: https://jsr.io/@nodef/extra-lists/doc/~/is
+[keys]: https://jsr.io/@nodef/extra-lists/doc/~/keys
+[values]: https://jsr.io/@nodef/extra-lists/doc/~/values
+[entries]: https://jsr.io/@nodef/extra-lists/doc/~/entries
+[fromEntries]: https://jsr.io/@nodef/extra-lists/doc/~/fromEntries
+[size]: https://jsr.io/@nodef/extra-lists/doc/~/size
+[isEmpty]: https://jsr.io/@nodef/extra-lists/doc/~/isEmpty
+[compare]: https://jsr.io/@nodef/extra-lists/doc/~/compare
+[isEqual]: https://jsr.io/@nodef/extra-lists/doc/~/isEqual
+[get]: https://jsr.io/@nodef/extra-lists/doc/~/get
+[getAll]: https://jsr.io/@nodef/extra-lists/doc/~/getAll
+[getPath]: https://jsr.io/@nodef/extra-lists/doc/~/getPath
+[hasPath]: https://jsr.io/@nodef/extra-lists/doc/~/hasPath
+[set]: https://jsr.io/@nodef/extra-lists/doc/~/set
+[swap]: https://jsr.io/@nodef/extra-lists/doc/~/swap
+[remove]: https://jsr.io/@nodef/extra-lists/doc/~/remove
+[head]: https://jsr.io/@nodef/extra-lists/doc/~/head
+[tail]: https://jsr.io/@nodef/extra-lists/doc/~/tail
+[take]: https://jsr.io/@nodef/extra-lists/doc/~/take
+[drop]: https://jsr.io/@nodef/extra-lists/doc/~/drop
+[count]: https://jsr.io/@nodef/extra-lists/doc/~/count
+[countAs]: https://jsr.io/@nodef/extra-lists/doc/~/countAs
+[min]: https://jsr.io/@nodef/extra-lists/doc/~/min
+[minEntry]: https://jsr.io/@nodef/extra-lists/doc/~/minEntry
+[max]: https://jsr.io/@nodef/extra-lists/doc/~/max
+[maxEntry]: https://jsr.io/@nodef/extra-lists/doc/~/maxEntry
+[range]: https://jsr.io/@nodef/extra-lists/doc/~/range
+[rangeEntries]: https://jsr.io/@nodef/extra-lists/doc/~/rangeEntries
+[subsets]: https://jsr.io/@nodef/extra-lists/doc/~/subsets
+[randomKey]: https://jsr.io/@nodef/extra-lists/doc/~/randomKey
+[randomValue]: https://jsr.io/@nodef/extra-lists/doc/~/randomValue
+[randomEntry]: https://jsr.io/@nodef/extra-lists/doc/~/randomEntry
+[randomSubset]: https://jsr.io/@nodef/extra-lists/doc/~/randomSubset
+[has]: https://jsr.io/@nodef/extra-lists/doc/~/has
+[hasValue]: https://jsr.io/@nodef/extra-lists/doc/~/hasValue
+[hasEntry]: https://jsr.io/@nodef/extra-lists/doc/~/hasEntry
+[hasSubset]: https://jsr.io/@nodef/extra-lists/doc/~/hasSubset
+[find]: https://jsr.io/@nodef/extra-lists/doc/~/find
+[findAll]: https://jsr.io/@nodef/extra-lists/doc/~/findAll
+[search]: https://jsr.io/@nodef/extra-lists/doc/~/search
+[searchAll]: https://jsr.io/@nodef/extra-lists/doc/~/searchAll
+[searchValue]: https://jsr.io/@nodef/extra-lists/doc/~/searchValue
+[searchValueAll]: https://jsr.io/@nodef/extra-lists/doc/~/searchValueAll
+[forEach]: https://jsr.io/@nodef/extra-lists/doc/~/forEach
+[some]: https://jsr.io/@nodef/extra-lists/doc/~/some
+[every]: https://jsr.io/@nodef/extra-lists/doc/~/every
+[map]: https://jsr.io/@nodef/extra-lists/doc/~/map
+[reduce]: https://jsr.io/@nodef/extra-lists/doc/~/reduce
+[filter]: https://jsr.io/@nodef/extra-lists/doc/~/filter
+[filterAt]: https://jsr.io/@nodef/extra-lists/doc/~/filterAt
+[reject]: https://jsr.io/@nodef/extra-lists/doc/~/reject
+[rejectAt]: https://jsr.io/@nodef/extra-lists/doc/~/rejectAt
+[flat]: https://jsr.io/@nodef/extra-lists/doc/~/flat
+[flatMap]: https://jsr.io/@nodef/extra-lists/doc/~/flatMap
+[zip]: https://jsr.io/@nodef/extra-lists/doc/~/zip
+[partition]: https://jsr.io/@nodef/extra-lists/doc/~/partition
+[partitionAs]: https://jsr.io/@nodef/extra-lists/doc/~/partitionAs
+[chunk]: https://jsr.io/@nodef/extra-lists/doc/~/chunk
+[concat]: https://jsr.io/@nodef/extra-lists/doc/~/concat
+[join]: https://jsr.io/@nodef/extra-lists/doc/~/join
+[isDisjoint]: https://jsr.io/@nodef/extra-lists/doc/~/isDisjoint
+[unionKeys]: https://jsr.io/@nodef/extra-lists/doc/~/unionKeys
+[union]: https://jsr.io/@nodef/extra-lists/doc/~/union
+[intersection]: https://jsr.io/@nodef/extra-lists/doc/~/intersection
+[difference]: https://jsr.io/@nodef/extra-lists/doc/~/difference
+[symmetricDifference]: https://jsr.io/@nodef/extra-lists/doc/~/symmetricDifference
