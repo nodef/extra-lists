@@ -2,7 +2,7 @@ A collection of functions for operating upon Lists.<br>
 
 ▌
 📦 [JSR](https://jsr.io/@nodef/extra-lists),
-📦 [NPM](https://www.npmjs.com/package/extra-lists),
+📦 [NPM](https://www.npmjs.com/package/@nodef/extra-lists),
 📰 [Docs](https://jsr.io/@nodef/extra-lists/doc).
 
 **Lists** is a pair of key list and value list, with unique keys. It is an an
